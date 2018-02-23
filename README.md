@@ -8,18 +8,14 @@ TIL 은 배운 걸 마크다운으로 설명합니다.
 
 ## Rules
 
----
-
 * Markdown 문법은 [GitHub Flavored Markdown Spec](https://help.github.com/categories/writing-on-github/)을 사용.
 * 각 언어 및 기술별 폴더를 생성하고, 해당 폴더에 문서를 정리.
 
 ## Categories
 
----
-
 * [rxjava](#rxjava)
 * [blockchain](#blockchain)
-* [dApp](#dApp)
+* [dApp](#dapp)
 
 ## rxjava
 
@@ -34,8 +30,6 @@ TIL 은 배운 걸 마크다운으로 설명합니다.
 * [test](https://github.com/bear2u/til/blob/master/dapp/test.md)
 
 ## Read Books
-
----
 
 * 클린 소프트웨어
 * 마인드 셋
@@ -65,16 +59,12 @@ TIL 은 배운 걸 마크다운으로 설명합니다.
 
 ## References
 
----
-
 * [jbranchaud/til](https://github.com/jbranchaud/til)
 * [thoughtbot/til](https://github.com/thoughtbot/til)
 * [milooy/til](https://github.com/milooy/TIL)
 * [매일 15분 전공공부방 소개페이지](https://goo.gl/jGGjs6)
 
 ## Other Developers TIL
-
----
 
 * [dev-juyoung/til](https://github.com/dev-juyoung/til) - Cro님
 * [WnslgPsl/til](https://github.com/WnslgPsl/til) - 아윤빠
