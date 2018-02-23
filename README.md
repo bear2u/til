@@ -1,6 +1,6 @@
 # TIL
 
-> # Today I Learned
+> ### Today I Learned
 
 오늘도 하루하루 최선을 다해서 살아가면서 배운걸 적습니다.
 
