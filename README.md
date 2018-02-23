@@ -2,9 +2,9 @@
 
 > # Today I Learned
 
-오늘도 하루하루 최선을 다해서 살아가면서 배운걸 적습니다. 
+오늘도 하루하루 최선을 다해서 살아가면서 배운걸 적습니다.
 
-TIL 은 배운 걸 마크다운으로 설명합니다. 
+TIL 은 배운 걸 마크다운으로 설명합니다.
 
 ## Rules
 
@@ -13,7 +13,25 @@ TIL 은 배운 걸 마크다운으로 설명합니다.
 * Markdown 문법은 [GitHub Flavored Markdown Spec](https://help.github.com/categories/writing-on-github/)을 사용.
 * 각 언어 및 기술별 폴더를 생성하고, 해당 폴더에 문서를 정리.
 
+## Categories
 
+---
+
+* rxjava
+* blockchain
+* dApp
+
+## rxjava
+
+* [test](https://github.com/bear2u/til/blob/master/rxjava/test.md)
+
+## blockchain
+
+* [test](https://github.com/bear2u/til/blob/master/blockchain/test.md)
+
+## dApp
+
+* [test](https://github.com/bear2u/til/blob/master/dapp/test.md)
 
 ## Read Books
 
@@ -44,8 +62,6 @@ TIL 은 배운 걸 마크다운으로 설명합니다.
 * 에버노트 생각서랍 활용편
 * 블록체인 인사이트
 * 기획의 정석
-
-
 
 ## References
 
