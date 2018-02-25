@@ -8,9 +8,10 @@
 
 ## blockchain
 
-* [test](blockchain/test.md)
+* [dApp](blockchain/test.md)
+  * [test](blockchain/test/test.md)
 
-## dApp
+## React
 
-* [test](dapp/test.md)
+* [자식  랜더링](react/c790-c2dd-b79c-b354-b9c1.md)
 
