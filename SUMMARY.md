@@ -28,3 +28,7 @@
 
 * [73.He\_blacked\_out](english/73heblacked-out.md)
 
+## next js
+
+* [라우팅](next-js/b77c-c6b0-d305.md)
+
