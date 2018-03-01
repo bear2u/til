@@ -29,3 +29,7 @@
 * [73.He\_blacked\_out](english/73heblacked-out.md)
 * [74.Let's make a toast](english/74lets-make-a-toast.md)
 
+## next js
+
+* [라우팅](next-js/b77c-c6b0-d305.md)
+
