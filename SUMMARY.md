@@ -27,4 +27,5 @@
 ## English
 
 * [73.He\_blacked\_out](english/73heblacked-out.md)
+* [74.Let's make a toast](english/74lets-make-a-toast.md)
 
