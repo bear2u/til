@@ -23,6 +23,7 @@
 * [8.1.6 람다를 활용한 중복 제거](kotlin/816-b78c-b2e4-b97c-d65c-c6a9-d55c-c911-bcf5-c81c-ac70.md)
 * [8.2.1\_using](kotlin/821using.md)
 * [8.2.2\_non\_local\_return](kotlin/822non-local-return.md)
+* [9.1.1 제너릭 함수와 프로퍼티](kotlin/911-c81c-b108-b9ad-d568-c218-c640-d504-b85c-d37c-d2f0.md)
 
 ## English
 
