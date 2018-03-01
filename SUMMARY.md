@@ -24,6 +24,7 @@
 * [8.2.1\_using](kotlin/821using.md)
 * [8.2.2\_non\_local\_return](kotlin/822non-local-return.md)
 * [9.1.1 제너릭 함수와 프로퍼티](kotlin/911-c81c-b108-b9ad-d568-c218-c640-d504-b85c-d37c-d2f0.md)
+* [9.2.2 실체화한 타입 파라미터를 사용한 함수 선언](kotlin/922-c2e4-ccb4-d654-d55c-d0c0-c785-d30c-b77c-bbf8-d130-b97c-c0ac-c6a9-d55c-d568-c218-c120-c5b8.md)
 
 ## English
 
