@@ -55,17 +55,17 @@ function sayHello() public returns (string) { //string 타입으로 리턴합니
 }
 ```
 
-함수제어자의 경우 `view `와 `pure `를 가지고 있다. 
+함수제어자의 경우 `view`와 `pure`를 가지고 있다.
 
-view의 경우 함수가 데이터를 보기만 하고 변경하지 않는 다는 뜻이다. 
+view의 경우 함수가 데이터를 보기만 하고 변경하지 않는 다는 뜻이다.
 
-pure는 어떤 데이터도 접근하지 않는 것을 의미한다. 앱에서 읽지도 않고, 반환값이 함수에 전달된 인자값에 따라서 달라진다. 
+pure는 어떤 데이터도 접근하지 않는 것을 의미한다. 앱에서 읽지도 않고, 반환값이 함수에 전달된 인자값에 따라서 달라진다.
 
 > 솔리디티 컴파일러는 이러한 부분에 대해서 무엇을 쓰면 좋을지 경고를 표시해준다.
 
 ```js
 function sayHello() public view returns (string) {
-        
+
 }
 
 function _multiply(uint a, uint b) private pure returns (uint) {
@@ -75,7 +75,7 @@ function _multiply(uint a, uint b) private pure returns (uint) {
 
 **랜덤문자 생성**
 
-솔리디티에서 랜덤 발생하는 방법은 SHA3의 한 종류인 `keccak256 `을 이용하면 된다. 
+솔리디티에서 랜덤 발생하는 방법은 SHA3의 한 종류인 `keccak256`을 이용하면 된다.
 
 > 완벽하고 안전한 난수 발생기는 아닌걸 유의하자.
 
@@ -86,11 +86,11 @@ keccak256("aaaab");
 keccak256("aaaac");
 ```
 
-위 글자 하나때문에 값이 완전히 달라지는 걸 유념하자. 
+위 글자 하나때문에 값이 완전히 달라지는 걸 유념하자.
 
 **형 변환**
 
-가끔씩 형병환 할 경우가 있다. 
+가끔씩 형병환 할 경우가 있다.
 
 ```
 uint a = 5;
@@ -99,7 +99,28 @@ uint b = 6;
 uint8 c = a * b
 // b를 unit8 으로 형변환해서 코드가 제대로 동작하기 위해서...
 uint8 c = a * uint8(b);
+```
 
+**이벤트**
+
+이벤트는 계약이 블록체인 상에서 어떠한 이벤트 발생시 의사소통 하는 방법을 말한다. 
+
+계약은 특정이벤트가 발생되는지 리스닝하는 걸 뜻한다. 
+
+```
+event IntegersAdded(uint x, uint y, uint result);
+
+function add(uint _x, uint _y) public {
+    uint result = _x + _y;
+    //이벤트를 실행하여 앱에게 add 함수가 실행되었음을 알린다. 
+    IntegersAdded(_x, _y, result);
+    return result;
+}
+
+//////////////// 호출은
+MyContract.IntegerAdded(function(error,result){
+    //결과와 관련된 행동을 취한다.    
+});
 ```
 
 
