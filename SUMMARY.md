@@ -35,3 +35,7 @@
 
 * [라우팅](next-js/b77c-c6b0-d305.md)
 
+## Server
+
+* [우분투에 서버셋팅](server/nginx-c6b0-bd84-d22c-c124-ce58-d558-ae30.md)
+
