@@ -10,6 +10,8 @@
 
 # **방화벽 설정하기**
 
+aws ec2는 콘솔에서 설정가능
+
 참고 링크 :
 
 [https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-16-04 ](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-16-04)
@@ -224,13 +226,11 @@ curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
-네이티브 애드온 설치
+**네이티브 애드온 설치**
 
 ```
 sudo apt-get install -y build-essential
 ```
-
-
 
 **노드를 백그라운드에서 돌릴수 있는 PM2 설치**
 
@@ -242,9 +242,9 @@ pm2 startup systemd //서버 재시동시 자동으로 올릴수 있도록
 pm2 start ./bin/www //express app.js 실행
 ```
 
-그리고 pm2을 통해서 외부에서 모니터링 설치
+**그리고 pm2을 통해서 외부에서 모니터링 설치**
 
-[https://app.keymetrics.io](https://app.keymetrics.io) 추천
+[https://app.keymetrics.io](https://app.keymetrics.io) 추천 \( 1개까진 무료 \)
 
 ```
 //create bucket 후
@@ -305,7 +305,6 @@ server {
         proxy_cache_bypass $http_upgrade;
     }
 }
-
 ```
 
 **nginx sites-enabled에 symlink 생성하기**
