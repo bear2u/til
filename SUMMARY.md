@@ -10,7 +10,6 @@
 
 * [dApp](blockchain/test.md)
   * [기본 문법](blockchain/test/ch6array.md)
-* [유데미 수료증](blockchain/c720-b370-bbf8-c218-b8cc-c99d.md)
 
 ## React
 
@@ -39,4 +38,8 @@
 ## Server
 
 * [우분투에 서버셋팅](server/nginx-c6b0-bd84-d22c-c124-ce58-d558-ae30.md)
+
+## 수료증모음
+
+* [유데미 수료증](blockchain/c720-b370-bbf8-c218-b8cc-c99d.md)
 
