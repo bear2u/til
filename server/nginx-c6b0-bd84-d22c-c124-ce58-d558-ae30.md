@@ -1,3 +1,5 @@
+# 2018년 3월 9일자 확인됨
+
 # 우분투에 서버 설치하기
 
 시작하기전 기본 설정
@@ -6,23 +8,7 @@
 2. express 노드 앱이 준비 되어 있다는 가정
 3. putty나 맥을 통해서 터미널로 접속이 가능해야함 \(pem 파일 이미 등록된 상태\)
 
-# 다음에 해보기
-
-```
-sudo apt-get insall nginx 이전에,
-
-deb http://nginx.org/packages/ubuntu/ {codename} nginx
-deb-src http://nginx.org/packages/ubuntu/ {codename} nginx
-
-관련 패키지 인덱스 정보 추가하는 부분과 패키지 인덱스 정보 업데이트를 위한 
-sudo apt-get update 부분
-```
-
-```
-NPM 보단 Yarn 으로 해보기
-```
-
-**방화벽 설정하기**
+# **방화벽 설정하기**
 
 참고 링크 :
 
@@ -224,11 +210,27 @@ vsftpd.conf 와 관련된 내용
 
 [https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04)
 
-```
-npm 에서 네이티브 에드온 컴파일 하고 싶으면 
+**또는 정식 설치**
 
+[https://nodejs.org/en/download/package-manager/](https://nodejs.org/en/download/package-manager/)
+
+```
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+or
+
+curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+네이티브 애드온 설치
+
+```
 sudo apt-get install -y build-essential
 ```
+
+
 
 **노드를 백그라운드에서 돌릴수 있는 PM2 설치**
 
@@ -275,19 +277,60 @@ location / {
 .........
 ```
 
+혹시 `site-avavailable` 폴더가 안만들어진 경우...
+
+```
+cd /etc/nginx/sites-enabled 
+//없는 폴더일 경우
+
+//1. sites-enabled 폴더를 만든다. 
+//2. default(사이트이름가능) 만든다. 
+vi /etc/nginx/sites-enabled/default
+```
+
+```
+///etc/nginx/sites-enabled/default 내용
+
+server {
+    listen 80;
+
+    server_name  {도메인주소};
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+```
+
+**nginx sites-enabled에 symlink 생성하기**
+
+이제`sites-available`에 있는 파일들에 대해서`sites-enabled`에 symlink를 추가합시다
+
+```
+mkdir /etc/nginx/sites-enabled
+sudo ln -s /etc/nginx/sites-available/[아까 만든 default] /etc/nginx/sites-enabled/
+```
+
 그리고 문법에 이상없는 지 체크
 
 ```
-ngnix -t
+nginx -t
 -> nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-그럼 ngnix 재시작
+**그럼 ngnix 재시작**
 
 ```
-sudo systemctl restart nginx
-or
-sudo /etc/init.d/nginx restart
+// 재시작은 아래에 있는 명령어 중 하나로 실행하시면 됩니다.
+$ sudo service nginx restart
+$ sudo systemctl restart nginx
+$ sudo /etc/init.d/nginx restart
 
 -> [ ok ] Restarting nginx (via systemctl): nginx.service.
 ```
@@ -324,11 +367,11 @@ Codename:       xenial
 > certbot 환경선택 에서 우분투 16.04 + Nginx 선택
 
 ```
-$ sudo apt-get update
-$ sudo apt-get install software-properties-common
-$ sudo add-apt-repository ppa:certbot/certbot
-$ sudo apt-get update
-$ sudo apt-get install python-certbot-nginx
+sudo apt-get update
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install python-certbot-nginx
 ```
 
 그리고 certbot 인증 절차를 시작한다.
