@@ -6,20 +6,72 @@
 2. express 노드 앱이 준비 되어 있다는 가정
 3. putty나 맥을 통해서 터미널로 접속이 가능해야함 \(pem 파일 이미 등록된 상태\)
 
-# **nginx 설치하기**
+# 다음에 해보기
 
 ```
+sudo apt-get insall nginx 이전에,
+
+deb http://nginx.org/packages/ubuntu/ {codename} nginx
+deb-src http://nginx.org/packages/ubuntu/ {codename} nginx
+
+관련 패키지 인덱스 정보 추가하는 부분과 패키지 인덱스 정보 업데이트를 위한 
+sudo apt-get update 부분
+
+```
+
+```
+NPM 보단 Yarn 으로 해보기
+```
+
+**방화벽 설정하기**
+
+참고 링크 : 
+
+[https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-16-04 ](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-16-04)
+
+```
+ufw allow 80
+```
+
+# N**ginx 설치**
+
+일반적으로 우분투에 설치시 최신버전을 설치를 안한다. 그래서 저장소 키를 가져와서 직접 최신걸로 업데이트를 할 수 있다. 
+
+참고내용 : 
+
+[https://websiteforstudents.com/install-nginx-latest-version-ubuntu-16-10-17-04/](https://websiteforstudents.com/install-nginx-latest-version-ubuntu-16-10-17-04/)
+
+[https://bjornjohansen.no/install-latest-version-of-nginx-on-ubuntu](https://bjornjohansen.no/install-latest-version-of-nginx-on-ubuntu)
+
+**사인키 등록**
+
+    // get nginx key
+    curl -O https://nginx.org/keys/nginx_signing.key
+
+    // install
+    apt-key add nginx_signing.key
+
+    $ sudo echo -e "deb https://nginx.org/packages/mainline/ubuntu/ `lsb_release -cs` nginx\ndeb-src https://nginx.org/packages/mainline/ubuntu/ `lsb_release -cs` nginx" > /etc/apt/sources.list.d/nginx.list
+
+```
+sudo apt-get update
 sudo apt-get install nginx
 ```
 
-버전 체크
+**업그레이드시**
+
+```
+sudo apt-get dist-upgrade
+```
+
+**버전 체크**
 
 ```
 nginx -v
 -> nginx version: nginx/1.10.3 (Ubuntu)
 ```
 
-명령어 모음
+**명령어 모음**
 
 ```
 // 시작
@@ -184,7 +236,7 @@ pm2 start ./bin/www //express app.js 실행
 
 그리고 pm2을 통해서 외부에서 모니터링 설치
 
-**`https://app.keymetrics.io`** 추천
+`https://app.keymetrics.io` 추천
 
 ```
 //create bucket 후
@@ -195,11 +247,13 @@ pm2 link b3o4z****** rxio4******** //메뉴얼대로 진행
 
 이제 ngnix에서 내부 서버로 포워딩해야함
 
-참고 사이트 : 
+참고 사이트 :
 
 [https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04)
 
 ```
+vi /etc/nginx/sites-available/default
+
 ..........
 
 # / 루트로 오는 경우 3000번으로 포워딩처리
@@ -211,8 +265,8 @@ location / {
         proxy_set_header Host $host;
         proxy_cache_bypass $http_upgrade;
     }
-    
-.........    
+
+.........
 ```
 
 그리고 문법에 이상없는 지 체크
@@ -232,15 +286,15 @@ sudo /etc/init.d/nginx restart
 -> [ ok ] Restarting nginx (via systemctl): nginx.service.
 ```
 
-그러면 포스트맨이나 웹에서 접속 테스트를 해본다. 
+그러면 포스트맨이나 웹에서 접속 테스트를 해본다.
 
-도메인은 router 53에서 A 레코드로 하나 추가함. 
+도메인은 router 53에서 A 레코드로 하나 추가함.
 
-그리고 value 에 해당 아이피를 입력함 
+그리고 value 에 해당 아이피를 입력함
 
 > 시간이 다소 걸릴 수 있음
 
-도메인 변경후 접속 테스트를 해서 통과가 되는 경우 HTTPS 설치로 넘어가자. 
+도메인 변경후 접속 테스트를 해서 통과가 되는 경우 HTTPS 설치로 넘어가자.
 
 **HTTPS 설치 - letsencrypt + certbot 이용**
 
@@ -259,7 +313,6 @@ Distributor ID: Ubuntu
 Description:    Ubuntu 16.04.3 LTS
 Release:        16.04
 Codename:       xenial
-
 ```
 
 > certbot 환경선택 에서 우분투 16.04 + Nginx 선택
@@ -269,10 +322,10 @@ $ sudo apt-get update
 $ sudo apt-get install software-properties-common
 $ sudo add-apt-repository ppa:certbot/certbot
 $ sudo apt-get update
-$ sudo apt-get install python-certbot-nginx 
+$ sudo apt-get install python-certbot-nginx
 ```
 
-그리고 certbot 인증 절차를 시작한다. 
+그리고 certbot 인증 절차를 시작한다.
 
 ```
 sudo certbot --nginx
@@ -281,21 +334,19 @@ sudo certbot --nginx
 // 마지막은 http로 온걸 https로 리다이렉트할꺼냐 물어봄
 ```
 
-그리고 `letencrypt `이용시 3개월마다 갱신해야 한다. 이걸 자동 등록할수 있다. 
+그리고 `letencrypt`이용시 3개월마다 갱신해야 한다. 이걸 자동 등록할수 있다.
 
 ```
 sudo certbot renew --dry-run
 ```
 
-그리고 `https`로 접속 확인해본다. 
+그리고 `https`로 접속 확인해본다.
 
-마지막으로 제대로 되었는지 `SSL 등급 테스트`를 해보자 
+마지막으로 제대로 되었는지 `SSL 등급 테스트`를 해보자
 
 > [https://www.ssllabs.com/ssltest/](https://www.ssllabs.com/ssltest/)
 
 ![](/assets/ssl.png)
 
 그럼 이제 완료가 되었다. 터미널 끄고 개발하면 된다..ㅠㅠ
-
-
 
