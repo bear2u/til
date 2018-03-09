@@ -16,7 +16,6 @@ deb-src http://nginx.org/packages/ubuntu/ {codename} nginx
 
 관련 패키지 인덱스 정보 추가하는 부분과 패키지 인덱스 정보 업데이트를 위한 
 sudo apt-get update 부분
-
 ```
 
 ```
@@ -25,7 +24,7 @@ NPM 보단 Yarn 으로 해보기
 
 **방화벽 설정하기**
 
-참고 링크 : 
+참고 링크 :
 
 [https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-16-04 ](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-16-04)
 
@@ -35,9 +34,9 @@ ufw allow 80
 
 # N**ginx 설치**
 
-일반적으로 우분투에 설치시 최신버전을 설치를 안한다. 그래서 저장소 키를 가져와서 직접 최신걸로 업데이트를 할 수 있다. 
+일반적으로 우분투에 설치시 최신버전을 설치를 안한다. 그래서 저장소 키를 가져와서 직접 최신걸로 업데이트를 할 수 있다.
 
-참고내용 : 
+참고내용 :
 
 [https://websiteforstudents.com/install-nginx-latest-version-ubuntu-16-10-17-04/](https://websiteforstudents.com/install-nginx-latest-version-ubuntu-16-10-17-04/)
 
@@ -131,9 +130,18 @@ adduser test
 //비번 입력창 나오면 알아서 입력
 ```
 
+FTP 권한 및 옵션 확인
+
+```
+echo 'allow_writeable_chroot=YES' >> /etc/vsftpd.conf //YES로 변경
+chmod 777 /home/{유저이름}
+```
+
 ```
 sudo /etc/init.d/vsftpd restart //재가동
 ```
+
+
 
 기본 설정
 
