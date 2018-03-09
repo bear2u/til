@@ -141,9 +141,7 @@ chmod 777 /home/{유저이름}
 sudo /etc/init.d/vsftpd restart //재가동
 ```
 
-
-
-기본 설정
+**기본 설정**
 
 ```
 vsftpd.conf 와 관련된 내용
@@ -244,7 +242,7 @@ pm2 start ./bin/www //express app.js 실행
 
 그리고 pm2을 통해서 외부에서 모니터링 설치
 
-`https://app.keymetrics.io` 추천
+[https://app.keymetrics.io](https://app.keymetrics.io) 추천
 
 ```
 //create bucket 후
