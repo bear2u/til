@@ -10,6 +10,7 @@
 
 * [dApp](blockchain/test.md)
   * [기본 문법](blockchain/test/ch6array.md)
+* [유데미 수료증](blockchain/c720-b370-bbf8-c218-b8cc-c99d.md)
 
 ## React
 
