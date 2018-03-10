@@ -9,7 +9,8 @@
 ## blockchain
 
 * [dApp](blockchain/test.md)
-  * [기본 문법](blockchain/test/ch6array.md)
+  * [좀비 레슨 \#1](blockchain/test/ch6array.md)
+  * [좀비 레슨 \#2](blockchain/test/c880-be44-b808-c2a8-2.md)
 
 ## React
 
