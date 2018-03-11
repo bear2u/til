@@ -11,6 +11,7 @@
 * [dApp](blockchain/test.md)
   * [좀비 레슨 \#1](blockchain/test/ch6array.md)
   * [좀비 레슨 \#2](blockchain/test/c880-be44-b808-c2a8-2.md)
+  * [좀비 레슨 \#3](blockchain/test/c880-be44-b808-c2a8-3.md)
 
 ## React
 
