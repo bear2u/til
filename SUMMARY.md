@@ -46,3 +46,7 @@
 
 * [유데미 수료증](blockchain/c720-b370-bbf8-c218-b8cc-c99d.md)
 
+## Web
+
+* Hexo 설치하기
+
