@@ -48,5 +48,5 @@
 
 ## Web
 
-* Hexo 설치하기
+* [Hexo 설치하기](server/hexo-c124-ce58-d558-ae30.md)
 
