@@ -36,6 +36,8 @@
 
 이걸 Gson으로 변경시
 
+
+
 Resonse 형태는
 
 ```js
