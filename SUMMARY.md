@@ -55,7 +55,7 @@
 
 * [Hexo 설치하기](server/hexo-c124-ce58-d558-ae30.md)
 
-## Android
+## Android2
 
 * [GSON 파싱 예제](server/gson-d30c-c2f1-c608-c81c.md)
 
