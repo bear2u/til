@@ -1,3 +1,19 @@
+# express 기본 설치 후 
+
+```
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send({ hi: 'there' });
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT);
+```
+
+
+
 # 하루쿠 서버 체크
 
 [https://devcenter.heroku.com/articles/getting-started-with-nodejs\#deploy-the-app](https://devcenter.heroku.com/articles/getting-started-with-nodejs#deploy-the-app)
@@ -39,6 +55,17 @@ Express Prot 동적 체크
 
 `const PORT = process.env.PORT`
 
+
+
+# Git Add & Commit
+
+```
+git add *(.)
+git commit -m 'init'
+```
+
+
+
 ## Deploy the app
 
 In this step you will deploy the app to Heroku.
@@ -52,7 +79,6 @@ heroku create
 Creating sharp-rain-871... done, stack is cedar-14
 http://sharp-rain-871.herokuapp.com/ | https://git.heroku.com/sharp-rain-871.git
 Git remote heroku added
-
 ```
 
 When you create an app, a git remote \(called`heroku`\) is also created and associated with your local git repository.
@@ -118,7 +144,6 @@ To https://git.heroku.com/nameless-savannah-4829.git
  * [new branch]      master -
 >
  master
-
 ```
 
 The application is now deployed. Ensure that at least one instance of the app is running:
