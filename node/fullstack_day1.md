@@ -1,4 +1,4 @@
-# express 기본 설치 후 
+# express 기본 설치 후
 
 ```
 const express = require('express');
@@ -11,8 +11,6 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
 ```
-
-
 
 # 하루쿠 서버 체크
 
@@ -55,16 +53,12 @@ Express Prot 동적 체크
 
 `const PORT = process.env.PORT`
 
-
-
 # Git Add & Commit
 
 ```
 git add *(.)
 git commit -m 'init'
 ```
-
-
 
 ## Deploy the app
 
