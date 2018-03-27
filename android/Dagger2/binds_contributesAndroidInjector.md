@@ -64,8 +64,6 @@ Of course / , we / will also need to mark / our Module / as abstract / in this c
 
 물론 우리는 이 경우에는 모듈을 추상적으로 표시해야 합니다.  그것은 더 효율적이고 더 구체적이고 그러므로 @Binds을 보다 효율적으로 만들 수 있다.
 
-
-
 # 2일차
 
 **What / makes our abstract Module / more performant?**
@@ -78,7 +76,7 @@ Of course / , we / will also need to mark / our Module / as abstract / in this c
 
 > @provides 메소드는 / 인스턴스 메소드이다. / 그리고 / 그들은 필요하다 / 모듈의 인스턴스이다 / 하기위해 / 적용되다.
 
-@Provides 메소드는 인스턴스 메소드들이고 그들은 적용되기 위해 우리의 모듈의 인스턴스을 필요로 한다. 
+@Provides 메소드는 인스턴스 메소드들이고 그들은 적용되기 위해 우리의 모듈의 인스턴스을 필요로 한다.
 
 If / our Module / is abstract / and / contains / @Binds methods/ , dagger / will not instantiate / our module / and / instead / directly / use / the Provider of our injected parameter / \(LoginPresenter / in the above case\).
 
@@ -96,53 +94,21 @@ Dagger documentation / has / great FAQ questions / on @Binds vs @Provides method
 
 > 대거 문서는 / 가진다 / 휼륭한 FAQ 질문들을 / @Binds 와 @Provides 함수들을 / 이 경우에는 / 당신의 모듈 / 가진다 / @Provides 와 @Binds 함수들을 / 당신은 / 가진다 / 두가지 옵션을
 
-대거 문서는 @Binds 와 @Provides 함수들에 대한 휼륭한 FAQ 문서들을 가지고 있다. 당신의 모듈의 경우에는 두가지 함수들을 가진다. 당신은 두가지 옵션을 가진다. 
+대거 문서는 @Binds 와 @Provides 함수들에 대한 휼륭한 FAQ 문서들을 가지고 있다. 당신의 모듈의 경우에는 두가지 함수들을 가진다. 당신은 두가지 옵션을 가진다.
 
 Simplest / would be / to mark / your @Provides / instance / methods / as static.
 
 > 가장간단하게 / 될 것이다. / 마크 하기위해 / 당신의 @Provides / 인스턴스 / 함수들을 / 전역으로
 
-가장 간단하게 당신의 @Provides 인스턴스 함수들을 전역 함수로서 표시하게 될 것이다. 
+가장 간단하게 당신의 @Provides 인스턴스 함수들을 전역 함수로서 표시하게 될 것이다.
 
 If / it is necessary / to keep / them / as instance methods,/  then / you can split / your module / into two / and / extract out / all the @Binds / methods / into an abstract Module.
 
 > 만약에 / 필요로 하다 / 유지하기위해 / 그것들을 / 인스턴스 함수로서 / 그렇다면 / 당신은 나눌수 있다/ 당신의 모듈을  / 두개로 / 그리고 / 꺼내다 / @Binds 함수 모두를 / 추상화 모듈안으로
 
-만약에 그것들을 인스턴스 함수로 유지한다면 당신은 너의 모듈을 2개로 나눌수 있고 추상화 모듈안으로 @binds 함수 모두를  추출할수 있다. 
+만약에 그것들을 인스턴스 함수로 유지한다면 당신은 너의 모듈을 2개로 나눌수 있고 추상화 모듈안으로 @binds 함수 모두를  추출할수 있다.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+To know about more such optimizations and even others which the recent version 2.12 of dagger has brought along with it. I recommend watching “Optimizing Dagger on Android” by Ron Shapiro, Google.
 
 
 
