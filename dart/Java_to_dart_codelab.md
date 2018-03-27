@@ -289,17 +289,17 @@ main() {
 
 # 상속의 개념
 
-다트에서는 모든 클래스를 인터페이스 형태로 상속이 가능하다. 
+다트에서는 모든 클래스를 인터페이스 형태로 상속이 가능하다.
 
 ```
 class CircleMock implements Circle {
-  
+
 }
 ```
 
-상속을 하고 비어있는 상태일 경우 `Missing concrete implementations `오류가 발생될 수 있다. 
+상속을 하고 비어있는 상태일 경우 `Missing concrete implementations`오류가 발생될 수 있다.
 
-그래서 상속을 할 경우 getter 변수를 다 적어줘야 한다. 
+그래서 상속을 할 경우 getter 변수를 다 적어줘야 한다.
 
 ```
 class CircleMock implements Circle {
@@ -310,7 +310,7 @@ class CircleMock implements Circle {
 
 # 함수형 언어 지원
 
-자바스크립트 처럼 함수형태로 활용이 가능하다. 
+자바스크립트 처럼 함수형태로 활용이 가능하다.
 
 ```
 String scream(int length) {
@@ -322,7 +322,7 @@ main() {
   for (var length in values) {
     print(scream(length));
   }
-  
+
   //함수형으로 바꾸는 경우
   values.map(scream).forEach(print);
   values.skip(1).take(3).map(scream).forEach(print); //이런식으로 가능하다. 
@@ -352,8 +352,6 @@ If you are interested in seeing Dart technologies in action, try these codelabs:
 * [Write a Material Design AngularDart Web App](https://codelabs.developers.google.com/codelabs/your-first-angulardart-web-app/)
 * [Build an AngularDart & Firebase Web App](https://codelabs.developers.google.com/codelabs/angulardart-firebase-web-app/)
 
-
-
 You can learn much more about Dart with the following articles, resources, and websites.
 
 **Articles**
@@ -375,60 +373,6 @@ You can learn much more about Dart with the following articles, resources, and w
   [webdev.dartlang.org](https://webdev.dartlang.org/)
 * Flutter mobile app SDK:
   [flutter.io](https://flutter.io/)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
