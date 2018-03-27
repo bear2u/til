@@ -175,9 +175,9 @@ Origin: (0, 0), width: 0, height: 0
 
 # Factory를 이용해서 생성하는 방법
 
-아래와 같이 Circle, Square 클래스가 있다고 가정하자. 
+아래와 같이 Circle, Square 클래스가 있다고 가정하자.
 
-그리고 생성시 각자 공통적으로 묶을수 있다고 한다. 
+그리고 생성시 각자 공통적으로 묶을수 있다고 한다.
 
 ```js
 import 'dart:math';
@@ -241,7 +241,7 @@ Shape shapeFactory(String type) {
 main() {
   var circle = shapeFactory('circle');
   var square = shapeFactory('square');
-  
+
   print(circle.area);
   print(square.area);
 }
@@ -250,7 +250,7 @@ main() {
 4
 ```
 
-두번째 방법은 `Shape `클래스 안에 `factory `생성자를 만드는 것이다.
+두번째 방법은 `Shape`클래스 안에 `factory`생성자를 만드는 것이다.
 
 ```java
  import 'dart:math';
@@ -258,11 +258,11 @@ main() {
 abstract class Shape {
   //팩토리 함수를 정의
   factory Shape(String type) {
-  	if (type == 'circle') return new Circle(2);
+      if (type == 'circle') return new Circle(2);
     if (type == 'square') return new Square(2);
     throw 'Can\'t create $type';   
   }
-  
+
   num get area;
 }
 
@@ -281,11 +281,154 @@ class Square implements Shape {
 main() {
   var circle = new Shape('circle');
   var square = new Shape('square');  
-  
+
   print(circle.area);
   print(square.area);
 }
 ```
+
+# 상속의 개념
+
+다트에서는 모든 클래스를 인터페이스 형태로 상속이 가능하다. 
+
+```
+class CircleMock implements Circle {
+  
+}
+```
+
+상속을 하고 비어있는 상태일 경우 `Missing concrete implementations `오류가 발생될 수 있다. 
+
+그래서 상속을 할 경우 getter 변수를 다 적어줘야 한다. 
+
+```
+class CircleMock implements Circle {
+  num get radius;
+  num get area;
+}
+```
+
+# 함수형 언어 지원
+
+자바스크립트 처럼 함수형태로 활용이 가능하다. 
+
+```
+String scream(int length) {
+  return "A${'a' * length}h!";
+}
+
+main() {
+  var values = [1, 2, 3, 5, 10, 50];
+  for (var length in values) {
+    print(scream(length));
+  }
+  
+  //함수형으로 바꾸는 경우
+  values.map(scream).forEach(print);
+  values.skip(1).take(3).map(scream).forEach(print); //이런식으로 가능하다. 
+}
+```
+
+더 배우기 위해선
+
+In completing this codelab, you've gained knowledge on some differences between Java and Dart. Dart is easy to learn and, in addition, its[core libraries](https://www.dartlang.org/guides/libraries/useful-libraries)and[rich set of available packages](https://pub.dartlang.org/)increases your productivity. Dart scales well to large applications. Hundreds of Google engineers use Dart to write mission critical apps that bring in much of Google's revenue.
+
+## Next steps
+
+A 20-minute codelab isn't long enough to show you all of the differences between Java and Dart. For example, this codelab hasn't covered:
+
+* async/await, which allows you to write asynchronous code as if it were synchronous. Check out
+  [this DartPad example](https://dartpad.dartlang.org/fb763a4a770b5cdd896982e10ccf4118)
+  that animates the calculation of the first 5 decimals of π.
+* Method cascades, where
+  [everything is a builder](http://news.dartlang.org/2012/02/method-cascades-in-dart-posted-by-gilad.html)
+  !
+* [Null aware operators](http://news.dartlang.org/2015/08/dart-112-released-with-null-aware.html)
+
+If you are interested in seeing Dart technologies in action, try these codelabs:
+
+* [Building Beautiful UIs with Flutter](https://codelabs.developers.google.com/codelabs/flutter/)
+* [Firebase for Flutter](https://codelabs.developers.google.com/codelabs/flutter-firebase/)
+* [Write a Material Design AngularDart Web App](https://codelabs.developers.google.com/codelabs/your-first-angulardart-web-app/)
+* [Build an AngularDart & Firebase Web App](https://codelabs.developers.google.com/codelabs/angulardart-firebase-web-app/)
+
+
+
+You can learn much more about Dart with the following articles, resources, and websites.
+
+**Articles**
+
+* [Why I moved from Java to Dart](https://hackernoon.com/why-i-moved-from-java-to-dart-8f3802b1d652)
+* [What's your favorite Dart feature?](http://news.dartlang.org/2016/10/whats-your-favorite-dart-feature.html)
+
+**Resources**
+
+* [A Tour of the Dart Language](https://www.dartlang.org/guides/language/language-tour)
+* [Commonly Used Dart Libraries](https://www.dartlang.org/guides/libraries/useful-libraries)
+* [Effective Dart](https://www.dartlang.org/guides/language/effective-dart)
+
+**Websites**
+
+* Dart Language:
+  [www.dartlang.org](https://www.dartlang.org/)
+* Dart for the Web, including AngularDart:
+  [webdev.dartlang.org](https://webdev.dartlang.org/)
+* Flutter mobile app SDK:
+  [flutter.io](https://flutter.io/)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
