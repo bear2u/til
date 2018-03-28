@@ -108,7 +108,69 @@ If / it is necessary / to keep / them / as instance methods,/  then / you can sp
 
 만약에 그것들을 인스턴스 함수로 유지한다면 당신은 너의 모듈을 2개로 나눌수 있고 추상화 모듈안으로 @binds 함수 모두를  추출할수 있다.
 
-To know about more such optimizations and even others which the recent version 2.12 of dagger has brought along with it. I recommend watching “Optimizing Dagger on Android” by Ron Shapiro, Google.
+
+
+# 3일차
+
+To know / about more such optimizations / and even others / which the recent version / 2.12 of dagger / has brought / along with it. I / recommend / watching “Optimizing Dagger on Android” / by Ron Shapiro, Google.
+
+> 알기 위해선 / 더 많은 최적화에 대해 / 심지어 다른 것들 / 최근 버전에 대한 / 2.12 대거 버전 / 은 가져왔다 / 그것과 함께 / 나는 / 추천한다 / Android dagger 최적화를 보기를 / by Ron Shaprio , google
+
+더 많은 최적화에 대해서 알고 싶고 2.12 대거의 최신 버전은 심지어 다른 것도 가져왔다. 나는 영상을 보는 것을 추천한다. 
+
+# @ContributesAndroidInjector
+
+If you / have seen / a basic implementation of dagger-android / , you / would know / that it introduces / some amount / of boilerplate code. /  When / you are trying to / switch to dagger-android / or converting / your current app / to use it. 
+
+> 만약 당신이 / 본적이 있다면 / dagger-android의 기본 구현을 / 당신은 / 알것이다 / 그것은 소개한다 / 조금의 양 / 보일러 플레이트의 / 당신이 시도할때 / dagger-android로 바꾸는 걸 / 또는 변환하는 것을 / 당신의 현재 앱에 / 그것을 사용하기 위해
+
+만약 당신이 dagger-android의 기본 구현을 본 적이 있다면 당신은 조금의 보일러 플레이트의 양이 있단걸 알게 될 것이다. 
+
+당신이 시도할때 dagger-android 로 바꾸는 걸 시도할때 또는 그것을 사용하기 위해 당신의 현재 앱을 변환할때
+
+The most cumbersome / I think / is having / to create separate sub-components / for each of / your Activities / , / Fragments/, Services / , etc. and adding / those / to the  injectorFactories of your DispatchingAndroidInjector / \(by using @IntoSet\)
+
+> 다루기 힘든건 / 내가 생각하기에 / 가지는 것이다 / 분리된 sub-components들을 만들기 위해 / 각각의 / 당신의 activity , fragments, 서비스등.. / 그리고 추가한다 / 그러한것들을 / 인당신의 DispatchingAndroidInject의  젝션공장에
+
+내가 생각하기에 가장 다루기 힘든건 당신의 엑티비티, 프래그먼트, 서버시등 각각의 분리된 보조 컴포넌트들을 만들기 위해 가지는 것이다. 그리고 당신의 DispatchingAndroidnjector의 InjectorFactories에 추가하는 것이다. 
+
+Dagger Android / introduced / an annotation / which can reduce / the Component Binds / IntoSet Subcomponent ActivityKey FragmentKey etc. / boilerplate for you.
+
+Dagger Android는 Subcomponent Activity와 fragment 등을 필요한 보일러플레이트들을 줄이기 위해 어노테이션을 소개한다. 
+
+If / you / have a simple module /like the following, /you /can then /let dagger /handle the rest.
+
+> 만약에 / 당신이 / 심플한 모듈을 가진다 / 따르는 것 같은 / 당신이 할수 있고 dagger 가 나머지를 처리한다.
+
+만약 당신이 나머지를 처리할 수 있는 간단한 모듈을 가진다. 
+
+```
+@Module
+public abstract class LoginModule {
+
+    @Binds
+    public abstract LoginContract.Presenter
+  provideLoginPresenter(LoginPresenter loginPresenter);
+
+}
+```
+
+### All you need to do / is write / the following snippet / inside the Module / of the component, / which is going to be / the super-component / of the generated LoginComponent. / Example, / If you / have an AppComponent /and you /want dagger to generate /a LoginSubcomponent /for your LoginActivity, /you will write /the following /snippet inside your AppModule.
+
+> 당신이 필요하기 위해 필요한 모든 건 / 적는 것이다 / 다음과 같은 조각 / 모듈안에 / 컴포넌트의 / 되기 위해 / super-compoent / LoginComponent가 생성된 / 예를 들어 / 만약 당신이  / Appcompoent를 가진다 / 그리고 당신은 생성하기 위한 대거 / LoginSubcomponent / 당신의 로근 엑티비티에 대해 / 당신은 적는다 / 따르는 / 당신의 앱모듈안에 스닛트
+
+당신이 하기 필요한 모든건 LoginComponent을 생성하는 것의 부모 컴포넌트가 되기 위한 컴포넌트의 모듈을 따르면 된다. 
+
+예를 들어 당신은 AppComponent를 가지고 싶다면 당신은 LoginSubcomponent를 만들기 위해 당신은 당신의 앱모듈안에 스크립트를 적을 것이다. 
+
+```
+@ContributesAndroidInjector(modules = LoginModule.class)
+abstract LoginActivity loginActivity();
+```
+
+
+
+
 
 
 
