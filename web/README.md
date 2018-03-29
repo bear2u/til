@@ -1,4 +1,4 @@
-# CSS 
+# CSS
 
 아톰 추천 플러그인
 
@@ -82,4 +82,37 @@ Animation
 Transformations
 
 Media query \(브라우저 크기를 알아서 자동 조절함\)
+
+
+
+천천히 바뀌는 애니메이션 효과를 말한다. 
+
+```css
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>trasition</title>
+  </head>
+  <style>
+    .box{
+      background-color: green;
+      color:white;
+      transition:all .5s ease-in-out;
+    }
+    .box:active{
+      background-color: red;
+      color: blue;
+    }
+  </style>
+  <body>
+    <span class="box">
+      Text
+    </span>
+  </body>
+</html>
+
+```
+
+
 
