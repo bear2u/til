@@ -113,7 +113,7 @@ Media query \(브라우저 크기를 알아서 자동 조절함\)
 
 # Transformations
 
-도형을 만들어서 회원 하고 비틀고 그런 작업들을 뜻한다. 
+도형을 만들어서 회원 하고 비틀고 그런 작업들을 뜻한다.
 
 ```
 https://developer.mozilla.org/en-US/docs/Web/CSS/transform
@@ -145,6 +145,46 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/transform
     <div class="box"></div>
   </body>
 </html>
+```
+
+# Animations
+
+from - to 2단계로도 사용이 가능하다.
+
+```css
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>trasition</title>
+  </head>
+  <style>
+    .box{
+      width: 50px;
+      height: 50px;
+      background: red;
+      animation: 1.5s scaleAndRotateSquare infinite ease-in-out;
+    }
+    @keyframes scaleAndRotateSquare {
+      0%{ //from
+        transform: none;
+      }
+      50%{
+        transform: rotate(1turn) scale(.5, .5);
+        color:white;
+      }
+      100%{ //to 로 대신해서 쓸수 있다.
+        transform: none;
+      }
+    }
+
+  </style>
+  <body>
+
+    <div class="box">11</div>
+  </body>
+</html>
+
 ```
 
 
