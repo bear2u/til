@@ -83,9 +83,7 @@ Transformations
 
 Media query \(브라우저 크기를 알아서 자동 조절함\)
 
-
-
-천천히 바뀌는 애니메이션 효과를 말한다. 
+천천히 바뀌는 애니메이션 효과를 말한다.
 
 ```css
 <!DOCTYPE html>
@@ -111,7 +109,42 @@ Media query \(브라우저 크기를 알아서 자동 조절함\)
     </span>
   </body>
 </html>
+```
 
+# Transformations
+
+도형을 만들어서 회원 하고 비틀고 그런 작업들을 뜻한다. 
+
+```
+https://developer.mozilla.org/en-US/docs/Web/CSS/transform
+```
+
+```css
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>trasition</title>
+  </head>
+  <style>
+    .box{
+      width: 100px;
+      height: 100px;
+      background: red;
+      /* transform: rotate(20deg); */
+      /* transform: translateX(10px) rotate(10deg) translateY(5px); */
+      transition: transform .5s ease-in-out;
+    }
+    .box:hover{
+      transform: rotate(1turn);
+    }
+
+  </style>
+  <body>
+
+    <div class="box"></div>
+  </body>
+</html>
 ```
 
 
