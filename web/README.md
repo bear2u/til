@@ -191,6 +191,10 @@ from - to 2단계로도 사용이 가능하다.
 화면 크기에 맞춘 상태에 따라 정의 된 상태가 변할 수 있는 방법을 뜻한다.
 
 ```
+//화면을 늘리면 green 줄이면 blue로 변경
+```
+
+```
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
