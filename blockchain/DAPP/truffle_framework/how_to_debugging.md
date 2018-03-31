@@ -100,7 +100,7 @@ truffle(develop)> //입장
 migrate
 ```
 
-배포를 한 후 결과값을 보면 다음과 같다. 
+배포를 한 후 결과값을 보면 다음과 같다.
 
 ```
   Replacing Migrations...
@@ -118,13 +118,103 @@ Saving successful migration to network...
 Saving artifacts...
 ```
 
-그러면 테스팅 서버에 배포가 된 걸로 보인다. 
+그러면 테스팅 서버에 배포가 된 걸로 보인다.
 
 이제 테스팅 코드를 작성해서 실제 값이 잘 넣고 가져오는 지 테스트를 해보자.
 
-/test 폴더내  `testing_simplestorage.js` 를 만들자. 
+/test 폴더내  `testing_simplestorage.js` 를 만들자.
 
-그리고 내용에 다음과 같이 테스팅을 해본다. 
+그리고 내용에 다음과 같이 자바스크립트로 테스팅을 해본다.
+
+테스팅시 Promise 사용하는 방법과 Await 문법을 각각 사용해서 테스팅 해보았다. 
+
+자바스크립트 테스팅 관련 자세한 문서 [바로가기](http://truffleframework.com/docs/getting_started/javascript-tests)
+
+```js
+var SimpleStorage = artifacts.require("SimpleStorage");
+
+contract("SimpleStorage", function(accounts) {
+  it("should value is 0", function() {
+    SimpleStorage.deployed()
+      .then(function(instance) {
+        return instance.get.call();
+      })
+      .then(function(value) {
+        assert.equal(value, 0, "value is 0");
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  });
+  it("should value is 4 when i put the 4 about value", async () => {
+    try {
+      let instance = await SimpleStorage.deployed();
+      await instance.set(4); //4를 넣어본다.
+
+      let instance2 = await SimpleStorage.deployed();
+      let value = await instance2.get.call();
+      assert.equal(value, 4, "value is 4"); // 그리고 결과값이 4로 나오는 지 확인해본다. 
+    } catch (e) {
+      console.log(e);
+    }
+  });
+});
+```
+
+콘솔에서 바로 테스팅도 가능하다. 
+
+테스팅전에 배포환경을 초기를 해야한다. 
+
+```
+> migrate --reset
+```
+
+```
+> truffle develope
+SimpleStorage.deployed().then(function(instance){return instance.get.call();}).then(function(value){return value.toNumber()});
+> 0
+SimpleStorage.deployed().then(function(instance){return instance.set(4);});
+
+SimpleStorage.deployed().then(function(instance){return instance.get.call();}).then(function(value){return value.toNumber()});
+> 4 //4로 나오는 걸 확인
+
+
+```
+
+자바스크립와 콘솔에서 테스팅시 차이점은 트랙잭션이 일어날시 로그가 좀 다르게 나온다. 
+
+```
+// 트렉잭션 발생시켜본다.
+SimpleStorage.deployed().then(function(instance){return instance.set(4);});
+............................ 결과 출력
+{ tx: '0x8a7d3343dd2aaa0438157faae678ca57cc6485825bb4ed2ebefe90609dd268ce',
+  receipt:
+   { transactionHash: '0x8a7d3343dd2aaa0438157faae678ca57cc6485825bb4ed2ebefe90609dd268ce',
+     transactionIndex: 0,
+     blockHash: '0xd66fc7ddf829f1d1ee4a655c0b6a7de537748865de39de28b2167d8485fd9e92',
+     blockNumber: 5,
+     gasUsed: 41642,
+     cumulativeGasUsed: 41642,
+     contractAddress: null,
+     logs: [],
+     status: '0x01',
+     logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000' },
+  logs: [] }
+```
+
+> 출력값을 사용자별로 다르게 나올수 있다.
+
+위와 같은 내용은 정상적으로 계약이 이루어 질 경우이다. 
+
+# 디버깅
+
+
+
+
+
+
+
+
 
 
 
