@@ -6,7 +6,7 @@
 
 Truffle 은 DAPP 개발을 편하게 해주는 프레임워크이다. 테스팅 및 컴파일, 배포까지 쉽게 해준다.
 
-테스팅은 [Ganache ](http://truffleframework.com/ganache)를 이용한다. Ganache 은 개발모드에서 가상으로 테스팅 및 배포까지 하게 해주는 프레임워크 
+테스팅은 [Ganache ](http://truffleframework.com/ganache)를 이용한다. Ganache 은 개발모드에서 가상으로 테스팅 및 배포까지 하게 해주는 프레임워크
 
 다른 웹에서 쉽게 테스팅을 할시 [http://remix.ethereum.org/](http://remix.ethereum.org/) 에서 쉽게 가능하다.
 
@@ -58,7 +58,7 @@ contract SimpleStorage {
 }
 ```
 
-두가지 간단한 함수들이 있다. `Set, Get` 등이다. 변수를 넣고 가져오는 계약이다. 
+두가지 간단한 함수들이 있다. `Set, Get` 등이다. 변수를 넣고 가져오는 계약이다.
 
 이제 `/migrations`폴더에 배포함수를 넣어보자.
 
@@ -172,6 +172,7 @@ contract("SimpleStorage", function(accounts) {
 
 ```
 > migrate --reset
+> test
 ```
 
 ```
@@ -258,7 +259,6 @@ truffle(develop)> migrate --reset // 배포 초기화
 ```
 
 ```bash
-
 Compiling .\contracts\Store.sol...
 Writing artifacts to .\build\contracts
 
@@ -278,7 +278,6 @@ Running migration: 2_deploy_contracts.js
 Saving successful migration to network...
   ... 0x69eaa7ed49cc72426706d54c4f52ba70b742ed6910f1223eb0df5f250b4b8ec3
 Saving artifacts...
-
 ```
 
 ```
@@ -286,7 +285,7 @@ Saving artifacts...
 truffle(develop)> SimpleStorage.deployed().then(function(instance){return instance.set(4);});
 ```
 
-실행시 오류내용을 확인할 수 있다. 
+실행시 오류내용을 확인할 수 있다.
 
 ```
 Error: VM Exception while processing transaction: invalid opcode //0이 아니므로 오류 발생
@@ -297,7 +296,6 @@ Error: VM Exception while processing transaction: invalid opcode //0이 아니�
     at C:\Users\tommy\AppData\Roaming\npm\node_modules\truffle\build\webpack:\~\truffle-provider\wrapper.js:134:1
     at C:\Users\tommy\AppData\Roaming\npm\node_modules\truffle\build\webpack:\~\web3\lib\web3\requestmanager.js:86:1
     at Object.InvalidResponse (C:\Users\tommy\AppData\Roaming\npm\node_modules\truffle\build\webpack:\~\web3\lib\web3\errors.js:38:1)
-
 ```
 
 그리고 다시 2번째 콘솔로 가서 로그를 확인해본다.
@@ -394,7 +392,7 @@ debug 0x2cc0d39fc0bec51835df91343e64577b34ae335f7d998143349d5ab8b3d63181
     7:         assert(x == 0); //0일 경우에만 통과를 하도록 한다.
                ^^^^^^^^^^^^^^
 
-엔터를 누르면 차례로 진행되면서 오류가 발생되는 부분에 표시가 된다. 이런식으로 단계별로 디버깅을 할 수 있다. 
+엔터를 누르면 차례로 진행되면서 오류가 발생되는 부분에 표시가 된다. 이런식으로 단계별로 디버깅을 할 수 있다.
 
 [Remix](http://remix.ethereum.org/) 를 통해서 디버깅이 쉽게 되는 점도 알아놓으면 도움이 많이 된다.
 
