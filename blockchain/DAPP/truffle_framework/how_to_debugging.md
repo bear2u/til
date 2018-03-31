@@ -126,7 +126,7 @@ Saving artifacts...
 
 그리고 내용에 다음과 같이 자바스크립트로 테스팅을 해본다.
 
-테스팅시 Promise 사용하는 방법과 Await 문법을 각각 사용해서 테스팅 해보았다. 
+테스팅시 Promise 사용하는 방법과 Await 문법을 각각 사용해서 테스팅 해보았다.
 
 자바스크립트 테스팅 관련 자세한 문서 [바로가기](http://truffleframework.com/docs/getting_started/javascript-tests)
 
@@ -161,9 +161,9 @@ contract("SimpleStorage", function(accounts) {
 });
 ```
 
-콘솔에서 바로 테스팅도 가능하다. 
+콘솔에서 바로 테스팅도 가능하다.
 
-테스팅전에 배포환경을 초기를 해야한다. 
+테스팅전에 배포환경을 초기를 해야한다.
 
 ```
 > migrate --reset
@@ -177,11 +177,9 @@ SimpleStorage.deployed().then(function(instance){return instance.set(4);});
 
 SimpleStorage.deployed().then(function(instance){return instance.get.call();}).then(function(value){return value.toNumber()});
 > 4 //4로 나오는 걸 확인
-
-
 ```
 
-자바스크립와 콘솔에서 테스팅시 차이점은 트랙잭션이 일어날시 로그가 좀 다르게 나온다. 
+자바스크립와 콘솔에서 테스팅시 차이점은 트랙잭션이 일어날시 로그가 좀 다르게 나온다.
 
 ```
 // 트렉잭션 발생시켜본다.
@@ -204,17 +202,83 @@ SimpleStorage.deployed().then(function(instance){return instance.set(4);});
 
 > 출력값을 사용자별로 다르게 나올수 있다.
 
-위와 같은 내용은 정상적으로 계약이 이루어 질 경우이다. 
+위와 같은 내용은 정상적으로 계약이 이루어 질 경우이다.
 
 # 디버깅
 
+솔리디티\(.sol\) 에서 스마트 계약 개발시 컴파일은 되지만 런타임에서 디버깅을 해서 잘 동작되는지 체크 해볼 필요가 있다. 
 
+우선 솔리디티에서 강제적으로 오류를 발생시켜 보자. 
 
+계약 내 set 함수를 아래와 같이 바꾼 후 다시 배포를 해보자. 
 
+```
+function set(uint x) public {
+    assert(x == 0); //0일 경우에만 통과를 하도록 한다. 
+    myVariable = x;
+}
+```
 
+다시 배포를 해보자. 
 
+```
+> migrate --reset
+```
 
+디버깅시 실행시 개발모드에서 로그도 출력을 볼 수 있다. 
 
+그러기 위해선 Terminal 을 따로 열어서 확인을 할 수 있다. 
 
+![](/assets/truffle1_2.png)
 
++을 클릭해서 터미널을 추가한다. 
+
+그리고 개발에서 로그모드로 다시 접속한다. 
+
+```
+> truffle develop --log
+
+Connected to existing Truffle Develop session at http://127.0.0.1:9545/
+....
+```
+
+그리고 처음 콘솔로 가서 다시 트렉젝션을 실행 시켜본다. 
+
+```bash
+truffle(develop)> migrate --reset // 배포 초기화
+
+Compiling .\contracts\Store.sol...
+Writing artifacts to .\build\contracts
+
+Using network 'develop'.
+
+Running migration: 1_initial_migration.js
+  Replacing Migrations...
+  ... 0xeab337bfe489629610d34f11044e77fbfc37cfbea4b614f2e12c87ec45ea6f35
+  Migrations: 0x2c2b9c9a4a25e24b174f26114e8926a9f2128fe4
+Saving successful migration to network...
+  ... 0x9b51540f5a7d75a8fc920e3e5e4ec66792ba31fd006bd176901f0e6347af2dba
+Saving artifacts...
+Running migration: 2_deploy_contracts.js
+  Replacing SimpleStorage...
+  ... 0x6622a3183323a916e08b9e1d55ec0f848ca75174adae954ebe796e0e66d0ae3f
+  SimpleStorage: 0xfb88de099e13c3ed21f80a7a1e49f8caecf10df6
+Saving successful migration to network...
+  ... 0x69eaa7ed49cc72426706d54c4f52ba70b742ed6910f1223eb0df5f250b4b8ec3
+Saving artifacts...
+
+//트렉잭션 실행하기
+truffle(develop)> SimpleStorage.deployed().then(function(instance){return instance.set(4);});
+Error: VM Exception while processing transaction: invalid opcode //0이 아니므로 오류 발생
+    at XMLHttpRequest._onHttpResponseEnd (C:\Users\tommy\AppData\Roaming\npm\node_modules\truffle\build\webpack:\~\xhr2\lib\xhr2.js:509:1)
+    at XMLHttpRequest._setReadyState (C:\Users\tommy\AppData\Roaming\npm\node_modules\truffle\build\webpack:\~\xhr2\lib\xhr2.js:354:1)
+    at XMLHttpRequestEventTarget.dispatchEvent (C:\Users\tommy\AppData\Roaming\npm\node_modules\truffle\build\webpack:\~\xhr2\lib\xhr2.js:64:1)
+    at XMLHttpRequest.request.onreadystatechange (C:\Users\tommy\AppData\Roaming\npm\node_modules\truffle\build\webpack:\~\web3\lib\web3\httpprovider.js:128:1)
+    at C:\Users\tommy\AppData\Roaming\npm\node_modules\truffle\build\webpack:\~\truffle-provider\wrapper.js:134:1
+    at C:\Users\tommy\AppData\Roaming\npm\node_modules\truffle\build\webpack:\~\web3\lib\web3\requestmanager.js:86:1
+    at Object.InvalidResponse (C:\Users\tommy\AppData\Roaming\npm\node_modules\truffle\build\webpack:\~\web3\lib\web3\errors.js:38:1)
+truffle(develop)>
+```
+
+그리고 다시 2번째 콘솔로 가
 
