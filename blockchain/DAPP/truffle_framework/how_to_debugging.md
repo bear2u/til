@@ -6,9 +6,9 @@
 
 Truffle 은 DAPP 개발을 편하게 해주는 프레임워크이다. 테스팅 및 컴파일, 배포까지 쉽게 해준다.
 
-테스팅은 [Ganache ](http://truffleframework.com/ganache)를 이용한다.
+테스팅은 [Ganache ](http://truffleframework.com/ganache)를 이용한다. Ganache 은 개발모드에서 가상으로 테스팅 및 배포까지 하게 해주는 프레임워크 
 
-일반적은 테스팅시 [http://remix.ethereum.org/](http://remix.ethereum.org/) 에서 쉽게 가능하다.
+다른 웹에서 쉽게 테스팅을 할시 [http://remix.ethereum.org/](http://remix.ethereum.org/) 에서 쉽게 가능하다.
 
 그리고 `truffle`에서도 지원한다.
 
@@ -34,7 +34,7 @@ truffle init
 * `migrations`: 이미 배폰 계약에 대해서 버전링을 하는 것이다. 자세한 내용은 [여기](https://medium.com/@blockchain101/demystifying-truffle-migrate-21afbcdf3264)를 참고하기 바란다.
 * `test`: 계약을 테스팅 할 수 있다. 
 
-truffle.js 등은 서버설정 및 가타 설정이 가능하다.
+위에보이는 `truffle.js` 등은 서버설정 및 기타 설정이 가능하다.
 
 초기화를 진행 한 후 스마트 계약\(.sol\) 을 만들어 보자.
 
@@ -58,7 +58,7 @@ contract SimpleStorage {
 }
 ```
 
-두가지 간단한 함수들이 있다. `Set, Get` 등이다.
+두가지 간단한 함수들이 있다. `Set, Get` 등이다. 변수를 넣고 가져오는 계약이다. 
 
 이제 `/migrations`폴더에 배포함수를 넣어보자.
 
@@ -74,6 +74,9 @@ module.exports = function(deployer) {
 
 ```
 > truffle compile
+```
+
+```
 ...............
 Compiling .\contracts\Store.sol...
 Writing artifacts to .\build\contracts
@@ -87,7 +90,9 @@ Writing artifacts to .\build\contracts
 
 ```
 > truffle develop
+```
 
+```
 Connected to existing Truffle Develop session at http://127.0.0.1:9545/
 truffle(develop)> //입장
 ```
@@ -184,6 +189,9 @@ SimpleStorage.deployed().then(function(instance){return instance.get.call();}).t
 ```
 // 트렉잭션 발생시켜본다.
 SimpleStorage.deployed().then(function(instance){return instance.set(4);});
+```
+
+```
 ............................ 결과 출력
 { tx: '0x8a7d3343dd2aaa0438157faae678ca57cc6485825bb4ed2ebefe90609dd268ce',
   receipt:
@@ -237,15 +245,19 @@ function set(uint x) public {
 
 ```
 > truffle develop --log
+```
 
+```
 Connected to existing Truffle Develop session at http://127.0.0.1:9545/
-....
 ```
 
 그리고 처음 콘솔로 가서 다시 트렉젝션을 실행 시켜본다.
 
-```bash
+```
 truffle(develop)> migrate --reset // 배포 초기화
+```
+
+```bash
 
 Compiling .\contracts\Store.sol...
 Writing artifacts to .\build\contracts
@@ -267,8 +279,16 @@ Saving successful migration to network...
   ... 0x69eaa7ed49cc72426706d54c4f52ba70b742ed6910f1223eb0df5f250b4b8ec3
 Saving artifacts...
 
+```
+
+```
 //트렉잭션 실행하기
 truffle(develop)> SimpleStorage.deployed().then(function(instance){return instance.set(4);});
+```
+
+실행시 오류내용을 확인할 수 있다. 
+
+```
 Error: VM Exception while processing transaction: invalid opcode //0이 아니므로 오류 발생
     at XMLHttpRequest._onHttpResponseEnd (C:\Users\tommy\AppData\Roaming\npm\node_modules\truffle\build\webpack:\~\xhr2\lib\xhr2.js:509:1)
     at XMLHttpRequest._setReadyState (C:\Users\tommy\AppData\Roaming\npm\node_modules\truffle\build\webpack:\~\xhr2\lib\xhr2.js:354:1)
@@ -277,7 +297,7 @@ Error: VM Exception while processing transaction: invalid opcode //0이 아니�
     at C:\Users\tommy\AppData\Roaming\npm\node_modules\truffle\build\webpack:\~\truffle-provider\wrapper.js:134:1
     at C:\Users\tommy\AppData\Roaming\npm\node_modules\truffle\build\webpack:\~\web3\lib\web3\requestmanager.js:86:1
     at Object.InvalidResponse (C:\Users\tommy\AppData\Roaming\npm\node_modules\truffle\build\webpack:\~\web3\lib\web3\errors.js:38:1)
-truffle(develop)>
+
 ```
 
 그리고 다시 2번째 콘솔로 가서 로그를 확인해본다.
@@ -374,11 +394,13 @@ debug 0x2cc0d39fc0bec51835df91343e64577b34ae335f7d998143349d5ab8b3d63181
     7:         assert(x == 0); //0일 경우에만 통과를 하도록 한다.
                ^^^^^^^^^^^^^^
 
-엔터를 누르면 차례로 진행되면서 오류가 발생되는 부분에 표시가 된다.
+엔터를 누르면 차례로 진행되면서 오류가 발생되는 부분에 표시가 된다. 이런식으로 단계별로 디버깅을 할 수 있다. 
 
 [Remix](http://remix.ethereum.org/) 를 통해서 디버깅이 쉽게 되는 점도 알아놓으면 도움이 많이 된다.
 
 이 외에에도 다양한 케이스에서 테스팅가능하다.
+
+[소스 링크](https://github.com/bear2u/Truffle_testing_and_debugging)
 
 참조 링크
 
