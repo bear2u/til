@@ -278,7 +278,7 @@ Error: VM Exception while processing transaction: invalid opcode //0이 아니�
 truffle(develop)>
 ```
 
-그리고 다시 2번째 콘솔로 가서 로그를 확인해본다. 
+그리고 다시 2번째 콘솔로 가서 로그를 확인해본다.
 
 ```
 Connected to existing Truffle Develop session at http://127.0.0.1:9545/
@@ -372,11 +372,11 @@ debug 0x2cc0d39fc0bec51835df91343e64577b34ae335f7d998143349d5ab8b3d63181
     7:         assert(x == 0); //0일 경우에만 통과를 하도록 한다.
                ^^^^^^^^^^^^^^
 
-엔터를 누르면 차례로 진행되면서 오류가 발생되는 부분에 표시가 된다. 
+엔터를 누르면 차례로 진행되면서 오류가 발생되는 부분에 표시가 된다.
 
-[Remix](http://remix.ethereum.org/) 를 통해서 디버깅이 쉽게 되는 점도 알아놓으면 도움이 많이 된다. 
+[Remix](http://remix.ethereum.org/) 를 통해서 디버깅이 쉽게 되는 점도 알아놓으면 도움이 많이 된다.
 
-이 외에에도 다양한 케이스에서 테스팅가능하다. 
+이 외에에도 다양한 케이스에서 테스팅가능하다.
 
 참조 링크
 
