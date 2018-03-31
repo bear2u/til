@@ -1,3 +1,5 @@
+# ![](/assets/truffle_logo.png)
+
 # `Truffle`기초 - 계약 디버깅과 테스팅
 
 `Truffle`디버깅 및 테스팅 하는 방법을 알아보자.
