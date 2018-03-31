@@ -1,5 +1,3 @@
-원본 : [http://truffleframework.com/tutorials/debugging-a-smart-contract](http://truffleframework.com/tutorials/debugging-a-smart-contract)
-
 # `Truffle`기초 - 계약 디버깅과 테스팅
 
 `Truffle`디버깅 및 테스팅 하는 방법을 알아보자.
@@ -206,11 +204,11 @@ SimpleStorage.deployed().then(function(instance){return instance.set(4);});
 
 # 디버깅
 
-솔리디티\(.sol\) 에서 스마트 계약 개발시 컴파일은 되지만 런타임에서 디버깅을 해서 잘 동작되는지 체크 해볼 필요가 있다. 
+솔리디티\(.sol\) 에서 스마트 계약 개발시 컴파일은 되지만 런타임에서 디버깅을 해서 잘 동작되는지 체크 해볼 필요가 있다.
 
-우선 솔리디티에서 강제적으로 오류를 발생시켜 보자. 
+우선 솔리디티에서 강제적으로 오류를 발생시켜 보자.
 
-계약 내 set 함수를 아래와 같이 바꾼 후 다시 배포를 해보자. 
+계약 내 set 함수를 아래와 같이 바꾼 후 다시 배포를 해보자.
 
 ```
 function set(uint x) public {
@@ -219,21 +217,21 @@ function set(uint x) public {
 }
 ```
 
-다시 배포를 해보자. 
+다시 배포를 해보자.
 
 ```
 > migrate --reset
 ```
 
-디버깅시 실행시 개발모드에서 로그도 출력을 볼 수 있다. 
+디버깅시 실행시 개발모드에서 로그도 출력을 볼 수 있다.
 
-그러기 위해선 Terminal 을 따로 열어서 확인을 할 수 있다. 
+그러기 위해선 Terminal 을 따로 열어서 확인을 할 수 있다.
 
 ![](/assets/truffle1_2.png)
 
-+을 클릭해서 터미널을 추가한다. 
++을 클릭해서 터미널을 추가한다.
 
-그리고 개발에서 로그모드로 다시 접속한다. 
+그리고 개발에서 로그모드로 다시 접속한다.
 
 ```
 > truffle develop --log
@@ -242,7 +240,7 @@ Connected to existing Truffle Develop session at http://127.0.0.1:9545/
 ....
 ```
 
-그리고 처음 콘솔로 가서 다시 트렉젝션을 실행 시켜본다. 
+그리고 처음 콘솔로 가서 다시 트렉젝션을 실행 시켜본다.
 
 ```bash
 truffle(develop)> migrate --reset // 배포 초기화
@@ -280,5 +278,110 @@ Error: VM Exception while processing transaction: invalid opcode //0이 아니�
 truffle(develop)>
 ```
 
-그리고 다시 2번째 콘솔로 가
+그리고 다시 2번째 콘솔로 가서 로그를 확인해본다. 
+
+```
+Connected to existing Truffle Develop session at http://127.0.0.1:9545/
+
+  ..............
+
+  develop:testrpc eth_sendTransaction +2s
+  develop:testrpc  +17ms
+  develop:testrpc   Transaction: 0x2cc0d39fc0bec51835df91343e64577b34ae335f7d998143349d5ab8b3d63181 +1ms //이부분이 중요하다. 
+  develop:testrpc   Gas usage: 6721975 +0ms
+  develop:testrpc   Block Number: 11 +0ms
+  develop:testrpc   Block Time: Sat Mar 31 2018 09:56:57 GMT+0900 (대한민국 표준시) +1ms
+  develop:testrpc   Runtime Error: invalid opcode +0ms
+  develop:testrpc  +1ms
+```
+
+```
+Transaction: 0x2cc0d39fc0bec51835df91343e64577b34ae335f7d998143349d5ab8b3d63181
+```
+
+트렉잭션 아이디를 이용해서 디버깅이 가능하다. 첫번째 콘솔로 가서 아래와 같이 디버깅을 실행해본다.
+
+```
+debug 0x2cc0d39fc0bec51835df91343e64577b34ae335f7d998143349d5ab8b3d63181
+```
+
+    Gathering transaction data...
+
+    Addresses affected:
+     0xfb88de099e13c3ed21f80a7a1e49f8caecf10df6 - SimpleStorage
+
+    Commands:
+    (enter) last command entered (step next)
+    (o) step over, (i) step into, (u) step out, (n) step next
+    (;) step instruction, (p) print instruction, (h) print this help, (q) quit
+    (b) toggle breakpoint, (c) continue until breakpoint
+    (+) add watch expression (`+:<expr>`), (-) remove watch expression (-:<expr>)
+    (?) list existing watch expressions
+    (v) print variables and values, (:) evaluate expression - see `v`
+
+
+    Store.sol:
+
+    1: pragma solidity ^0.4.17;
+    2:
+    3: contract SimpleStorage {
+       ^^^^^^^^^^^^^^^^^^^^^^^^
+
+    debug(develop:0x2cc0d39f...)>
+
+    Store.sol:
+
+    4:     uint myVariable;
+    5:
+    6:     function set(uint x) public {
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    debug(develop:0x2cc0d39f...)>
+
+    Store.sol:
+
+    5:
+    6:     function set(uint x) public {
+    7:         assert(x == 0); //0일 경우에만 통과를 하도록 한다.
+                           ^
+
+    debug(develop:0x2cc0d39f...)>
+
+    Store.sol:
+
+    5:
+    6:     function set(uint x) public {
+    7:         assert(x == 0); //0일 경우에만 통과를 하도록 한다.
+                      ^
+
+    debug(develop:0x2cc0d39f...)>
+
+    Store.sol:
+
+    5:
+    6:     function set(uint x) public {
+    7:         assert(x == 0); //0일 경우에만 통과를 하도록 한다.
+                      ^^^^^^
+
+    debug(develop:0x2cc0d39f...)>
+
+    Store.sol:
+
+    5:
+    6:     function set(uint x) public {
+    7:         assert(x == 0); //0일 경우에만 통과를 하도록 한다.
+               ^^^^^^^^^^^^^^
+
+엔터를 누르면 차례로 진행되면서 오류가 발생되는 부분에 표시가 된다. 
+
+[Remix](http://remix.ethereum.org/) 를 통해서 디버깅이 쉽게 되는 점도 알아놓으면 도움이 많이 된다. 
+
+이 외에에도 다양한 케이스에서 테스팅가능하다. 
+
+참조 링크
+
+* [http://truffleframework.com/docs/getting\_started/solidity-tests](http://truffleframework.com/docs/getting_started/solidity-tests)
+* [http://truffleframework.com/tutorials/debugging-a-smart-contract](http://truffleframework.com/tutorials/debugging-a-smart-contract)
+
+
 
