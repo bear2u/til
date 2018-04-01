@@ -35,53 +35,7 @@ Truffle 튜터리얼 중 펫샵을 활용해서 프론트 까지 적용해서 �
 
 > 스마트 계약을 테스팅시 솔리디티 언어로 테스팅 하는 방법
 
-주로 스마트 계약을 테스팅시 자바스크립트\(mocha\)로 계약 함수를 신뢰성을 테스트한다. 하지만 여기에선 바로 솔리디티 언어로 테스팅하는 걸 보여준다.
 
-* [http://truffleframework.com/docs/getting\_started/solidity-tests](http://truffleframework.com/docs/getting_started/solidity-tests)
-
-```java
-pragma solidity ^0.4.17;
-
-//다양한 테스팅 도구 제공
-import "truffle/Assert.sol";
-//이미 서버에 배포된 계약 주소를 가져온다. 
-import "truffle/DeployedAddresses.sol";
-//계약 소스를 가져온다. 
-import "../contracts/Adoption.sol";
-
-contract TestAdoption {
-//Adoption 초기화
-    Adoption adoption = Adoption(DeployedAddresses.Adoption());
-    
-//Pet에 Adopt를 할수 있는지 테스트
-    function testUserCanAdoptPet() public {
-        uint returnedId = adoption.adopt(8);
-
-        uint expected = 8;
-
-        Assert.equal(returnedId, expected, "Adoption of pet ID 8 should be recoreded");
-    }
-
-    function testGetAdopterAddressByPetId() public {
-        address expected = this;
-
-        address adopter = adoption.adopters(8);
-
-        Assert.equal(adopter, expected, "Owner of pet Id 8 should be recored");
-    }
-
-    // Testing retrieval of all pet owners
-    function testGetAdopterAddressByPetIdInArray() public {
-        // Expected owner is this contract
-        address expected = this;
-
-        // Store adopters in memory rather than contract's storage
-        address[16] memory adopters = adoption.getAdopters();
-
-        Assert.equal(adopters[8], expected, "Owner of pet ID 8 should be recorded.");
-    }
-}
-```
 
 
 
