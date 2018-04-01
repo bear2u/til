@@ -1,4 +1,4 @@
-우선 Adoption.sol 파일을 훝어보자. 
+우선 Adoption.sol 파일을 훝어보자.
 
 ```java
 pragma solidity ^0.4.17;
@@ -44,8 +44,8 @@ contract TestAdoption {
         uint returnedId = adoption.adopt(8);
 
         uint expected = 8;
-        
-        
+
+
         //값이 제대로 가져오는 지 체크
         Assert.equal(returnedId, expected, "Adoption of pet ID 8 should be recoreded");
     }
@@ -65,7 +65,7 @@ contract TestAdoption {
     function testGetAdopterAddressByPetIdInArray() public {
         //트랙잭션을 할 예정이므로 예상 값을 this로 설정 가능하다. (펫 구매한 사람 주소)
         address expected = this;
-        
+
         //storeage, memory 를 설정해서 실제 물리적으로 저장 할 것인지 내부에서 저장할 건지 정한다. 
         //adoption 클래스에서 adopter 배열목록을 가져온다. 
         address[16] memory adopters = adoption.getAdopters();
@@ -74,6 +74,31 @@ contract TestAdoption {
         Assert.equal(adopters[8], expected, "Owner of pet ID 8 should be recorded.");
     }
 }
+```
+
+그리고 다음과 같이 테스팅을 해본다. 
+
+```
+> truffle test
+or
+devlope 모드일 경우 단지 test 만 입력
+```
+
+```
+Using network 'development'.
+
+   Compiling ./contracts/Adoption.sol...
+   Compiling ./test/TestAdoption.sol...
+   Compiling truffle/Assert.sol...
+   Compiling truffle/DeployedAddresses.sol...
+
+     TestAdoption
+       ✓ testUserCanAdoptPet (91ms)
+       ✓ testGetAdopterAddressByPetId (70ms)
+       ✓ testGetAdopterAddressByPetIdInArray (89ms)
+
+
+     3 passing (670ms)
 ```
 
 
