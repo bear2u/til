@@ -46,11 +46,14 @@ pragma solidity ^0.4.17;
 import "truffle/Assert.sol";
 //이미 서버에 배포된 계약 주소를 가져온다. 
 import "truffle/DeployedAddresses.sol";
+//계약 소스를 가져온다. 
 import "../contracts/Adoption.sol";
 
 contract TestAdoption {
+//Adoption 초기화
     Adoption adoption = Adoption(DeployedAddresses.Adoption());
-
+    
+//Pet에 Adopt를 할수 있는지 테스트
     function testUserCanAdoptPet() public {
         uint returnedId = adoption.adopt(8);
 
@@ -79,24 +82,6 @@ contract TestAdoption {
     }
 }
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
