@@ -42,7 +42,9 @@ Truffle 튜터리얼 중 펫샵을 활용해서 프론트 까지 적용해서 �
 ```java
 pragma solidity ^0.4.17;
 
+//다양한 테스팅 도구 제공
 import "truffle/Assert.sol";
+//이미 서버에 배포된 계약 주소를 가져온다. 
 import "truffle/DeployedAddresses.sol";
 import "../contracts/Adoption.sol";
 
@@ -78,5 +80,23 @@ contract TestAdoption {
 }
 ```
 
-위 내용에서 하나씩 살펴보자면 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
