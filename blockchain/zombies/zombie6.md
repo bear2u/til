@@ -102,13 +102,5 @@ var myContract = new web3js.eth.Contract(myABI, myContractAddress);
 var myContract = new Web3js.eth.Contract(myABI, myContractAddress);
 ```
 
-자 이제 모든 준비는 다 된 상태이다. 그럼 함수들을 호출을 해보자. 함수 호출시 `call `과 `send `를  사용한다. 
-
-
-
-
-
-
-
 
 
