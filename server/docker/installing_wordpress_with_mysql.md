@@ -92,6 +92,60 @@ $ docker-machine ip
 
 그럼 브라우저에 가서 `192.168.99.100:8000` 으로 열어보자.
 
+만약 테마나 플러그인 입력시 업로드에서 오류 발생시 uploads.ini 파일을 만들어서 
+
+> uploads.ini
+
+```
+file_uploads = On
+memory_limit = 64M
+upload_max_filesize = 64M
+post_max_size = 64M
+max_execution_time = 600
+```
+
+활용법
+
+Simple container  
+`docker run -v /home/someuser/mywordpress_project/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini wordpress`
+
+* Composer
+
+```
+services:
+  db:
+    image: mariadb:10.1
+    command: mysqld --innodb-buffer-pool-size=64M
+    environment:
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+  wordpress:
+    image: wordpress
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+    depends_on:
+      - db
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini  # <- right here, boi!!!
+      - ./my-wordpress-theme:/var/www/html/wp-content/themes/my-wordpress-theme
+```
+
+**Notes**
+
+If you're working on a docker-composer environment please do not forget to rebuild you container after your edit:
+
+`docker-compose up -d --build`
+
+
+
 참고 페이지 :
 
 * [https://wpguide.usefulparadigm.com/posts/257](https://wpguide.usefulparadigm.com/posts/257)
