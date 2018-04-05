@@ -1,18 +1,18 @@
-# Docker에 wordpress 와 mysql 빠른 설치 
+# Docker에 wordpress 와 mysql 빠른 설치
 
-우선 작업 할 폴더를 생성하자. 
+우선 작업 할 폴더를 생성하자.
 
 ```
 mkdir wordpress
 cd wordpress
 ```
 
-`docker compose` 를 이용한 설치를 할 예정이다. 
+`docker compose` 를 이용한 설치를 할 예정이다.
 
-yml \(.yaml\) 생성 해서 내용을 넣어보자. wordpress 와 mysql 설치하는 것이다. 
+yml \(.yaml\) 생성 해서 내용을 넣어보자. wordpress 와 mysql 설치하는 것이다.
 
 ```
-nano docker-compose.yml 
+nano docker-compose.yml
 ```
 
 ```
@@ -47,7 +47,7 @@ volumes:
 
 db\_data 라는 볼륨이 만들어졌다. 더 자세히 알고 싶으면 여기 [클릭](https://docs.docker.com/engine/admin/volumes/volumes/)
 
-docker-compose up 으로 실행을 해보자. 
+docker-compose up 으로 실행을 해보자.
 
 ```bash
 $ docker-compose up -d
@@ -71,7 +71,7 @@ Creating my_wordpress_db_1
 Creating my_wordpress_wordpress_1
 ```
 
-잘 올라갔는지 확인해보자. 
+잘 올라갔는지 확인해보자.
 
 ```
 & docker-compose ps
@@ -81,18 +81,18 @@ wordpress_db_1          docker-entrypoint.sh mysqld      Up      3306/tcp
 wordpress_wordpress_1   docker-entrypoint.sh apach ...   Up      0.0.0.0:8000->80/tcp
 ```
 
-mysql 은 3306 포트에 wordpress는 80 포트에 바인딩 된 걸 볼수 있다. 
+mysql 은 3306 포트에 wordpress는 80 포트에 바인딩 된 걸 볼수 있다.
 
-그럼 이제 아이피주소를 확인해보자. 
+그럼 이제 아이피주소를 확인해보자.
 
 ```
 $ docker-machine ip
 192.168.99.100
 ```
 
-그럼 브라우저에 가서 `192.168.99.100:8000` 으로 열어보자. 
+그럼 브라우저에 가서 `192.168.99.100:8000` 으로 열어보자.
 
-참고 페이지 : 
+참고 페이지 :
 
 * [https://wpguide.usefulparadigm.com/posts/257](https://wpguide.usefulparadigm.com/posts/257)
 * [https://docs.docker.com/compose/wordpress/\#bring-up-wordpress-in-a-web-browser](https://docs.docker.com/compose/wordpress/#bring-up-wordpress-in-a-web-browser)
