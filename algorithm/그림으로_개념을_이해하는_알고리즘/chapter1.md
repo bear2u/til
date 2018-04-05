@@ -24,18 +24,18 @@
 * 2^4 = 16 -&gt; log~2~16 = 4
 * 2^5 = 32 -&gt; log~2~32 = 5
 
-위의 경우에는 정렬된 배열에 한해 해당되는 내용이었다. 하지만 실무에서는 보통 정렬이 안되어있는 경우가 많은 편이다. 
+위의 경우에는 정렬된 배열에 한해 해당되는 내용이었다. 하지만 실무에서는 보통 정렬이 안되어있는 경우가 많은 편이다.
 
-그럼 어떻게 구현이 될까? 파이썬으로 시작해보자. 
+그럼 어떻게 구현이 될까? 파이썬으로 시작해보자.
 
-우선 먼저 배열 전체 길이를 설정하자. 
+우선 먼저 배열 전체 길이를 설정하자.
 
 ```
 low = 0
 high = len(list) - 1
 ```
 
-그리고 가운데를 딱 나누어서 원소를 확인해보자. 
+그리고 가운데를 딱 나누어서 원소를 확인해보자.
 
 ```
 mid = (low + high) / 2 //반으로 나눈값 설정
@@ -54,6 +54,30 @@ if guess < item:
 ```
 if guess > item
   hight = mid -1
+```
+
+파이썬 전체 소스는 다음과 같다. 
+
+```py
+def binary_search(list, item):
+    low = 0
+    high = len(list) - 1
+
+    while low <= high:
+        mid = (low + high) // 2 #// 을 주의
+        guess = list[mid]
+        if guess == item:
+            return mid
+        if guess > item: #item보다 guess 가 큰경우 
+            high = mid - 1
+        else:
+            low = mid + 1
+
+    return None #아이템이 리스트에 없음
+
+
+my_list = [1, 3, 5, 7, 9]
+print(binary_search(my_list, 7))
 ```
 
 
