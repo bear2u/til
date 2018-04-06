@@ -7,16 +7,13 @@
 1. 리스트로 한개씩 넣어서 검색해서 운좋으면 빠른 시간안에 검색이 될 수 있으나 최악의 경우 1000번의 수행을 해야 한다. 
 2. 이진탐색 알고리즘을 통해서 전체의 반을 검색하고 다시 반을 검색하는 방법을 사용할 수 있다. 
 
-예를 들어 100의 중간 50부터 시작되는 함수로 시작된다.
-
-1. 1~100 중에서 50부터 입력 -&gt; 너무 작다로 리턴됨
-2. 51~100 중에서 75로 예측해서 입력 -&gt; 너무 크다로 리턴됨
-3. 50~75 중에서 63으로 예측해서 입력 -&gt; 너무 크다로 리턴됨
-4. 50~63 중에서 57로 예측해서 입력 -&gt; 정답
+예를 들어 100의 중간 50부터 시작되는 함수로 시작된다
 
 4번만에 답을 찾은 경우이다. 그럼 log~2~ 16 = 4 이라고 표시한다.
 
-즉 로그는 거듭제곱의 반대말이다.
+즉 로그는 거듭제곱의 반대말이다. 
+
+> 지수표현이 잘 안됨..
 
 * 10^2^ = 100 -&gt; log~10~100 = 2
 * 10^3 = 100 -&gt; log~10~1000 = 3
@@ -56,28 +53,66 @@ if guess > item
   hight = mid -1
 ```
 
-파이썬 전체 소스는 다음과 같다. 
+표로 정리해보면 다음과 같다. 
+
+
+
+| idx | low | high | mid | guess | result | result |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| 0 | 0 | 99 | 49 \(50 - 1\) | 50 | 50 &lt; 57 | 크다 |
+| 1 | 50 | 99 | 74 \(75 - 1\) | 75 | 75 &gt; 57 | 작다 |
+| 2 | 50 | 73 | 61 \(62 -1\) | 62 | 62 &gt; 57 | 작다 |
+| 3 | 50 | 60 | 55 \(56-1\) | 56 | 56 &lt; 57 | 크다 |
+| 4 | 56 | 60 | 58 | 59 | 59 &gt;57 | 작다 |
+| 5 | 56 | 57 | 56 | 57 | 57 == 57 | 정답 |
 
 ```py
 def binary_search(list, item):
+    cnt = 0
     low = 0
     high = len(list) - 1
+    print("찾는 문자 : ", item)
 
     while low <= high:
-        mid = (low + high) // 2 #// 을 주의
+        mid = (low + high) // 2
         guess = list[mid]
+        print("번호:",cnt, " low:", low, " high:", high, " mid:", mid, " guess:", guess )
         if guess == item:
+            print("in ", guess, "==", item, " return ", mid)
             return mid
-        if guess > item: #item보다 guess 가 큰경우 
+        if guess > item: #item보다 guess 가 큰경ㅇ 
+            print("in ", guess, ">", item, " 작다")
             high = mid - 1
         else:
+            print("in ", guess, "<", item, " 크다")
             low = mid + 1
+        cnt=cnt+1    
+        
 
     return None #아이템이 리스트에 없음
 
 
-my_list = [1, 3, 5, 7, 9]
-print(binary_search(my_list, 7))
+my_list = list(range(1,101))
+print(binary_search(my_list, 57))
+```
+
+결과값
+
+```
+찾는 문자 :  57
+번호: 0  low: 0  high: 99  mid: 49  guess: 50
+in  50 < 57  크다
+번호: 1  low: 50  high: 99  mid: 74  guess: 75
+in  75 > 57  작다
+번호: 2  low: 50  high: 73  mid: 61  guess: 62
+in  62 > 57  작다
+번호: 3  low: 50  high: 60  mid: 55  guess: 56
+in  56 < 57  크다
+번호: 4  low: 56  high: 60  mid: 58  guess: 59
+in  59 > 57  작다
+번호: 5  low: 56  high: 57  mid: 56  guess: 57
+in  57 == 57  return  56
+56
 ```
 
 
