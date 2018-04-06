@@ -402,3 +402,19 @@ sudo certbot renew --dry-run
 
 그럼 이제 완료가 되었다. 터미널 끄고 개발하면 된다..ㅠㅠ
 
+
+
+추가적으로 nginx 에 파일업로드시 용량부족이 뜨는 경우가 있다. 
+
+```
+sudo nano /etc/nginx/nginx.conf
+
+.............
+http 부분에
+client_max_body_size 2M; //2M 부분에 원하는 용량 적으면 된다. 
+.............
+sudo /etc/init.d/nginx restart
+```
+
+
+
