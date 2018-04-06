@@ -113,7 +113,7 @@ in  57 == 57  return  56
 56
 ```
 
-다트 버전 
+다트 버전
 
 [온라인 에디터 바로가기](https://dartpad.dartlang.org/)
 
@@ -130,7 +130,7 @@ int binary_search(List<int> list, int item) {
   int low = 0;
   //리스트 갯수 - 1
   int high = list.length - 1;
-  
+
   //while low <= high
   while(low <= high) {  
     int mid = ((low + high) / 2).floor();    
@@ -142,13 +142,12 @@ int binary_search(List<int> list, int item) {
       high = mid -1;      
     }else{
       low = mid + 1;
-    }		  
+    }          
   }
-  
-  return 0;
- 
-}
 
+  return 0;
+
+}
 ```
 
 결과
