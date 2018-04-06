@@ -11,7 +11,7 @@
 
 4번만에 답을 찾은 경우이다. 그럼 log~2~ 16 = 4 이라고 표시한다.
 
-즉 로그는 거듭제곱의 반대말이다. 
+즉 로그는 거듭제곱의 반대말이다.
 
 > 지수표현이 잘 안됨..
 
@@ -53,9 +53,7 @@ if guess > item
   hight = mid -1
 ```
 
-표로 정리해보면 다음과 같다. 
-
-
+표로 정리해보면 다음과 같다.
 
 | idx | low | high | mid | guess | result | result |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -87,7 +85,7 @@ def binary_search(list, item):
             print("in ", guess, "<", item, " 크다")
             low = mid + 1
         cnt=cnt+1    
-        
+
 
     return None #아이템이 리스트에 없음
 
@@ -113,6 +111,56 @@ in  59 > 57  작다
 번호: 5  low: 56  high: 57  mid: 56  guess: 57
 in  57 == 57  return  56
 56
+```
+
+다트 버전 
+
+[온라인 에디터 바로가기](https://dartpad.dartlang.org/)
+
+```dart
+void main() {
+  //1~100까지 생성  
+  int targetNum = 57;
+  var list = new List<int>.generate(100, (i) => i+1);
+  print("final result =  ${binary_search(list, targetNum)}");
+}
+
+int binary_search(List<int> list, int item) {
+  //초기화  
+  int low = 0;
+  //리스트 갯수 - 1
+  int high = list.length - 1;
+  
+  //while low <= high
+  while(low <= high) {  
+    int mid = ((low + high) / 2).floor();    
+    int guess = list[mid];
+    print("$low,$high,$mid,$guess");
+    if(guess == item) {
+      return mid;
+    }else if(guess > item) {
+      high = mid -1;      
+    }else{
+      low = mid + 1;
+    }		  
+  }
+  
+  return 0;
+ 
+}
+
+```
+
+결과
+
+```bash
+0,99,49,50
+50,99,74,75
+50,73,61,62
+50,60,55,56
+56,60,58,59
+56,57,56,57
+final result =  56
 ```
 
 
