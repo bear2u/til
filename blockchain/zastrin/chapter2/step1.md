@@ -1,14 +1,15 @@
 # 토큰 기반 이더리움 투표 개발
 
-가짜 블록체인 위에 간단한 투표 스마트 계약을 구현하고 node.js 를 통해 웹페이지에서 성공적으로 상호작용을 하는 것을 공부해보자. 
+가짜 블록체인 위에 간단한 투표 스마트 계약을 구현하고 node.js 를 통해 웹페이지에서 성공적으로 상호작용을 하는 것을 공부해보자.
 
 애로 사황이 발생될 경우 [**community.zastrin.com**](https://community.zastrin.com/) 에서 도움받을 수 있다.
 
-이번강좌에서 진행상황은 다음과 같다. 
+이번강좌에서 진행상황은 다음과 같다.
 
 * Geth 설치 - Geth는 블록체인을 내려받고 이더리움 노드를 실행하기 위한 클라이언트 소프트웨어로, 퍼블릭 이더리움 네트워크와의 연결 가교입니다.
 
 * 스마트 계약의 컴파일과 배포에 쓰이는 이더리움 dapp 프레임워크, '트러플\(Truffle\)'을 설치합니다.
+
 * 투표 애플리케이션을 업데이트하고 트러플을 통해서 사용 가능하게 합니다.
 * Ropsten 테스트넷용으로 스마트 계약을 컴파일하고 배포합니다\(Ropsten 및 기타 네트워크에 대해서는 뒤에서 다룹니다\).
 * 트러플 콘솔 및 웹페이지로 스마트 계약과 상호작용합니다.
@@ -17,15 +18,13 @@
 
 ![](/assets/zastrin_ch2_1.png)
 
+그럼 우선 `Geth`를 설치를 해보자.
 
+Geth 는 도커를 이용해서 우분투 16.04 버전에서 진행된다.
 
-그럼 우선 `Geth `를 설치를 해보자. 
+도커 사용이 처음이라 익숙하지 않지만 도전해본다.
 
-Geth 는 도커를 이용해서 우분투 16.04 버전에서 진행된다. 
-
-도커 사용이 처음이라 익숙하지 않지만 도전해본다. 
-
-일단 [도커](https://www.docker.com/) 설치를 진행하자. 
+일단 [도커](https://www.docker.com/) 설치를 진행하자.
 
 ```
 $ docker run --rm(옵션) -it ubuntu:16.04 /bin/bash
@@ -67,10 +66,25 @@ INFO [04-07|05:39:05] UDP listener up                          self=enode://b1af
 INFO [04-07|05:39:05] RLPx listener up                         self=enode://b1af970e1f82f68d9ebb5da483a781286ed399d823c82a0b1ec37c7946cf021a1b8e4dd32eb79bb534a350167c9bf28cdc6d428317ae36b24714983665f03d7e@[::]:30303
 INFO [04-07|05:39:05] HTTP endpoint opened                     url=http://127.0.0.1:8545 cors=* vhosts=localhost
 INFO [04-07|05:39:05] IPC endpoint opened                      url=/root/.ethereum/testnet/geth.ipc
-
 ```
 
-출력 내용은 [https://ropsten.etherscan.io/](https://ropsten.etherscan.io/) 에서 확인가능하다. 
+출력 내용은 [https://ropsten.etherscan.io/](https://ropsten.etherscan.io/) 에서 확인가능하다.
+
+
+
+docker 실행된 상태에서 나오기 위해선 exit 말고 ctrl + p , ctrl + q 를 차례대로 입력한다. 
+
+
+
+나중에 도커 연결하기 위해서 필요한 주소
+
+`rpcaddr 을 127.0.0.1 을 0.0.0.0` 으로 변경 후 `docker-machine ip` 로 아이피를 가져와야 한다.
+
+```
+geth --testnet --syncmode fast --rpc --rpcapi db,eth,net,web3,personal --cache=1024 --rpcport 8545 --rpcaddr 0.0.0.0 --rpccorsdomain "*"
+```
+
+
 
 ## Geth 인자 설명
 
@@ -92,20 +106,20 @@ geth --testnet --syncmode fast --rpc --rpcapi db,eth,net,web3,personal --cache=1
 
 # 이더리움내에서 네트워크 종류
 
-Geth를 설치하고 Ropsten 테스트넷에서 블록체인을 다운로드 하기 위해서 노드를 시작했다. 그런데 이 Ropsten은 뭐고 Rinkeby 는 무엇인가. 
+Geth를 설치하고 Ropsten 테스트넷에서 블록체인을 다운로드 하기 위해서 노드를 시작했다. 그런데 이 Ropsten은 뭐고 Rinkeby 는 무엇인가.
 
-일단 이 두개는 테스트넷이고 차이점은 작업증명에서 차이가 있다. Ropsten은 Proof of Work 알고리즘을 사용하는 반면 Rinkeby 는 권한 증명\(Proof of Authority\) 을 사용한다. Kovan 이라는 유명한 테스트넷도 있긴 하다. 이건 페리티\(Parity\)가 필요하다. 패리티는 Geth와 비슷한 또 다른 클라이언 소프트웨어이다. 
+일단 이 두개는 테스트넷이고 차이점은 작업증명에서 차이가 있다. Ropsten은 Proof of Work 알고리즘을 사용하는 반면 Rinkeby 는 권한 증명\(Proof of Authority\) 을 사용한다. Kovan 이라는 유명한 테스트넷도 있긴 하다. 이건 페리티\(Parity\)가 필요하다. 패리티는 Geth와 비슷한 또 다른 클라이언 소프트웨어이다.
 
-이더리움 표준을 구현하기만 하면 누구든지 자신이 선호하는 언어로 클라이언트 소프트웨어로 작성이 가능하다. 
+이더리움 표준을 구현하기만 하면 누구든지 자신이 선호하는 언어로 클라이언트 소프트웨어로 작성이 가능하다.
 
-이부분 [이더리움 백서](http://gavwood.com/paper.pdf)에 볼수 있다. 
+이부분 [이더리움 백서](http://gavwood.com/paper.pdf)에 볼수 있다.
 
 > 이더리움 커뮤니티는 네트워크에서 실행중인 이더리움 소프트웨어에 v1.0, v2.0 처럼 지루한 버전명을 지정하는 대신 각 버전에 독자적인 이름을 붙여서 표현하고 있습니다.
-
+>
 > 이더리움 소프트웨어를 통해 새로운 블록체인 네트워크를 쉽게 시작할 수도 있습니다. 이더리움으로 프라이빗 네트워크를 개발해서 기업용으로 사용하는 사례도 있습니다.
-
+>
 > ## 워크플로우
-
+>
 > 이더리움 기반의 분산 응용 프로그램을 빌드하기 위한 워크플로우는 아래와 같습니다.
 >
 > 개발: Ganache
