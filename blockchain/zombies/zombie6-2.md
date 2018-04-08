@@ -174,9 +174,9 @@ event Transfer(address indexed _from, address indexed _to, uint256 _tokenId);
 
 # Web3.js 이벤트 및 메타 마스크
 
-현재로서는 웹소켓을 이용하여 이벤트를 구독할 수 있다. 최신 1.0 web3.js 내용이다. 
+현재로서는 웹소켓을 이용하여 이벤트를 구독할 수 있다. 최신 1.0 web3.js 내용이다.
 
-아직 메타메스크는 Provider 로써 제공을 못 해주고 있다. 그래서 infura 를 사용하여 만들수 있다. 
+아직 메타메스크는 Provider 로써 제공을 못 해주고 있다. 그래서 infura 를 사용하여 만들수 있다.
 
 ```
 var web3Infura = new Web3(new Web3.providers.WebsocketProvider("wss://mainnet.infura.io/ws"));
