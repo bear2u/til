@@ -82,7 +82,43 @@ smallest =>  0
 [2, 3, 5, 6, 10] <== 최종 정렬된 값
 ```
 
-빅오 표기법으로는 O\(n^2\) 이라고 한다. 
+빅오 표기법으로는 O\(n^2\) 이라고 한다.
 
 ![](/assets/algorithm_ch2_1.png)
+
+다트 버전의 경우는 [온라인 다트 편집기](https://dartpad.dartlang.org/) 에서 테스팅 가능하다. 
+
+```dart
+void main() {
+  print("result => ${selectionSort([5, 3, 6, 2, 10])}");
+}
+
+List<int> selectionSort(List<int> arr) {
+  var newArr = [];
+  var length = arr.length;
+  for(var i = 0; i < length; i++) {    
+  	var smallestIndex = findSmallestIndex(arr);    
+    newArr.add(arr[smallestIndex]);
+    arr.removeAt(smallestIndex);
+  }
+  return newArr;
+}
+
+int findSmallestIndex(List<int> arr) {
+  int smallest = arr[0];
+  int smallestIdx = 0;
+  
+  var newArr = arr.sublist(1,arr.length);
+  
+  newArr.forEach((item) {    
+    if(item < smallest) {
+      smallest = item;
+      smallestIdx = arr.indexOf(item);      
+    }
+  });  
+  return smallestIdx;
+}
+```
+
+
 
