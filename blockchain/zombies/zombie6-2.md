@@ -115,18 +115,62 @@ function levelUp(uint _zombieId) external payable {
 
 1 ether = 10^18 wei 로 계산된다.
 
-그래서 web3에선 편하게 1이더를 wei 로 쉽게 변환해준다. 
+그래서 web3에선 편하게 1이더를 wei 로 쉽게 변환해준다.
 
 ```
 web3js.utils.toWei("1", "ether");
 ```
 
-levelUpFee 가 0.001 이더로 설정되어있기 때문에 우리는 0.001 이더를 보낼 수 있다. 
+levelUpFee 가 0.001 이더로 설정되어있기 때문에 우리는 0.001 이더를 보낼 수 있다.
 
 ```
 CryptoZombies.methods.levelUp(zombieId)
 .send({ from: userAccount, value: web3js.utils.toWei("0.001", "ether") })
 ```
+
+# 이벤트 구독
+
+`zombieFactory.sol` 에서 새로운 좀비 호출시 `NewZombie `라는 이벤트를 트리거할 수 있다. `web3js` 에서도 이벤트 발생이 가능하다.
+
+```js
+cryptoZombies.events.NewZombie()
+.on("data", function(event) {
+  let zombie = event.returnValues; //이벤트 결과값을 여기로 리턴받음
+  console.log("A new zombie was born!", zombie.zombieId, zombie.name, zombie.dna);
+}).on("error", console.error);
+```
+
+어떤 좀비라도 DAPP 에서 생성이 되면 로그를 보여주게 된다. 현재 유저뿐만 아니라 모든 좀비에 대해서 이벤트가 발생을 하게 된다. 하지만 만약 현재 유저에만 보여주고 싶다면?
+
+# indexed 키워드 사용
+
+이벤트에서 현재 유저에만 이벤트가 가도록 하고 싶다면 indexed 키워드를 지정하면 된다. 
+
+ERC721상의 이벤트 중 하나인 전송 부분에서 살펴볼 수 있다. 
+
+```
+event Transfer(address indexed _from, address indexed _to, uint256 _tokenId);
+```
+
+\_from,\_to 가 indexed 키워드가 붙여져 있다. 
+
+    // Use `filter` to only fire this code when `_to` equals `userAccount`
+    cryptoZombies.events.Transfer({ filter: { _to: userAccount } })
+    .on("data", function(event) {
+      let data = event.returnValues;
+      // The current user just received a zombie!
+      // Do something here to update the UI to show it
+    }).on("error", console.error);
+
+# 지난 이벤트 조회
+
+`getPastEvents` 를 사용하여 지난 이벤트를 조회도 가능하다. fromBlock, toBlock 로 이벤트 로그들을 살펴볼수 있다. 
+
+    cryptoZombies.getPastEvents("NewZombie", { fromBlock: 0, toBlock: "latest" })
+    .then(function(events) {
+      // `events` is an array of `event` objects that we can iterate, like we did above
+      // This code will get us a list of every zombie that was ever created
+    });
 
 
 
