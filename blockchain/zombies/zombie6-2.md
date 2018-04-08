@@ -58,8 +58,8 @@ var accountInterval = setInterval(function() {
 
 # Send 함수
 
-* `send `트랙잭션을 수행하면 `from `해당되는 기능을 호출하는 사람의 주소가 필요하다. \(`msg.sender`\) . 그 후에 MetaMask 가 팝업으로 나와서 submit\(전송확인\) 할 것인지 물어본다. 
-* `send `시 거래 비용으로 가스가 든다. 
+* `send`트랙잭션을 수행하면 `from`해당되는 기능을 호출하는 사람의 주소가 필요하다. \(`msg.sender`\) . 그 후에 MetaMask 가 팝업으로 나와서 submit\(전송확인\) 할 것인지 물어본다. 
+* `send`시 거래 비용으로 가스가 든다. 
 * `send`를 하는 순간 블록에 노드를 업데이트 하므로 최소 `15이상의 시간`이 걸릴 수 있으므로 그에 대한 UI 를 고려 해야 할 것이다. 즉 비동기 함수가 필요할 것이다. 
 
 ```js
@@ -92,18 +92,41 @@ function createRandomZombie(name) {
 }
 ```
 
-여기에서 이벤트 리스너인 receipt 와 error 부분이 나온다. 
+여기에서 이벤트 리스너인 receipt 와 error 부분이 나온다.
 
 * receipt : 트랙잭션이 이더리움의 블록에 포함되면 트리거된다. 좀비가 계약서에 저장되었음을 의미한다. 
 * error : 가스가 불충분하거나 거래가 블록에 업데이트가 되지 않을 경우 발동된다. 그럼 여기에선 오류 발생됨을 알려야 할것이다. 
 
-> 그리고 전송시 가스를 코드에서 지정하거나 `MetaMask` .에서 지정하는 방법이 있을 수 있다. 
+> 그리고 전송시 가스를 코드에서 지정하거나 `MetaMask` .에서 지정하는 방법이 있을 수 있다.
 >
 > .send\({ from: userAccount, gas: 3000000 }\) // 이렇게 코드에서 지정하거나 MetaMask 로 사용자가 가스비를 설정하게끔 할수 있다.
 
+# Payable 함수
 
+```js
+// zombieHelper 에 함수를 호출할 수 있다. 
+function levelUp(uint _zombieId) external payable {
+  require(msg.value == levelUpFee);
+  zombies[_zombieId].level++;
+}
+```
 
+`Wei`란?
 
+1 ether = 10^18 wei 로 계산된다.
+
+그래서 web3에선 편하게 1이더를 wei 로 쉽게 변환해준다. 
+
+```
+web3js.utils.toWei("1", "ether");
+```
+
+levelUpFee 가 0.001 이더로 설정되어있기 때문에 우리는 0.001 이더를 보낼 수 있다. 
+
+```
+CryptoZombies.methods.levelUp(zombieId)
+.send({ from: userAccount, value: web3js.utils.toWei("0.001", "ether") })
+```
 
 
 
