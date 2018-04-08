@@ -130,7 +130,7 @@ CryptoZombies.methods.levelUp(zombieId)
 
 # 이벤트 구독
 
-`zombieFactory.sol` 에서 새로운 좀비 호출시 `NewZombie `라는 이벤트를 트리거할 수 있다. `web3js` 에서도 이벤트 발생이 가능하다.
+`zombieFactory.sol` 에서 새로운 좀비 호출시 `NewZombie`라는 이벤트를 트리거할 수 있다. `web3js` 에서도 이벤트 발생이 가능하다.
 
 ```js
 cryptoZombies.events.NewZombie()
@@ -144,15 +144,15 @@ cryptoZombies.events.NewZombie()
 
 # indexed 키워드 사용
 
-이벤트에서 현재 유저에만 이벤트가 가도록 하고 싶다면 indexed 키워드를 지정하면 된다. 
+이벤트에서 현재 유저에만 이벤트가 가도록 하고 싶다면 indexed 키워드를 지정하면 된다.
 
-ERC721상의 이벤트 중 하나인 전송 부분에서 살펴볼 수 있다. 
+ERC721상의 이벤트 중 하나인 전송 부분에서 살펴볼 수 있다.
 
 ```
 event Transfer(address indexed _from, address indexed _to, uint256 _tokenId);
 ```
 
-\_from,\_to 가 indexed 키워드가 붙여져 있다. 
+\_from,\_to 가 indexed 키워드가 붙여져 있다.
 
     // Use `filter` to only fire this code when `_to` equals `userAccount`
     cryptoZombies.events.Transfer({ filter: { _to: userAccount } })
@@ -164,13 +164,24 @@ event Transfer(address indexed _from, address indexed _to, uint256 _tokenId);
 
 # 지난 이벤트 조회
 
-`getPastEvents` 를 사용하여 지난 이벤트를 조회도 가능하다. fromBlock, toBlock 로 이벤트 로그들을 살펴볼수 있다. 
+`getPastEvents` 를 사용하여 지난 이벤트를 조회도 가능하다. fromBlock, toBlock 로 이벤트 로그들을 살펴볼수 있다.
 
     cryptoZombies.getPastEvents("NewZombie", { fromBlock: 0, toBlock: "latest" })
     .then(function(events) {
       // `events` is an array of `event` objects that we can iterate, like we did above
       // This code will get us a list of every zombie that was ever created
     });
+
+# Web3.js 이벤트 및 메타 마스크
+
+현재로서는 웹소켓을 이용하여 이벤트를 구독할 수 있다. 최신 1.0 web3.js 내용이다. 
+
+아직 메타메스크는 Provider 로써 제공을 못 해주고 있다. 그래서 infura 를 사용하여 만들수 있다. 
+
+```
+var web3Infura = new Web3(new Web3.providers.WebsocketProvider("wss://mainnet.infura.io/ws"));
+var czEvents = new web3Infura.eth.Contract(cryptoZombiesABI, cryptoZombiesAddress);
+```
 
 
 
