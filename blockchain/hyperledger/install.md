@@ -158,21 +158,30 @@ Open a new terminal window and navigate to the same directory mentioned in this 
 
 Log into the client container by running the following command:
 
-**`$ docker exec -it sawtooth-client-default bash`**
+`$ docker exec -it sawtooth-client-default bash`
 
 In your terminal, you will see something similar to the following:
 
-**`root@75b380886502:/#`**
+`root@75b380886502:/#`
 
-Your environment is now set up and you are ready to start experimenting with the network. But first, let’s confirm that our validator is up and running, and reachable from the client container. To do this, run the following command:
+Your environment is now set up and you are ready to start experimenting with the network. But first, let’s confirm that our validator is up and running, and reachable from the client container. To do this, run the following command:
 
-**`$ curl http://rest-api:8080/blocks`**
+`$ curl http://rest-api:8080/blocks`
 
 After running this command, you should see a**json**object response with “data”, array of batches, header, etc.
 
 And, to check the connectivity from the host computer, run the following command in a new terminal window \(it does not need to be the same directory as mentioned previously in this section\):
 
-**`$curl http://localhost:8080/blocks`**
+`$curl http://localhost:8080/blocks`
 
 After running this command, you should see a**json**object response with “data”, array of batches, header, etc
+
+And exit and stop the container
+
+```
+exit
+docker-compose down
+```
+
+
 
