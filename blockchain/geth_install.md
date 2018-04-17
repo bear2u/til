@@ -30,7 +30,7 @@
    ```
 4. 하위에 chaindata 폴더를 만들어서 저장할 곳을 만들자. 
 
-그리고 geth로 초기화를 진행한다. 
+그리고 geth로 초기화를 진행한다.
 
 ```
 geth --datadir=chaindata/ init genesis.json
@@ -39,36 +39,59 @@ geth --datadir=chaindata/ init genesis.json
 geth --datadir=./chaindata/ init ./genesis.json
 ```
 
-그러면 chaindata 디렉토리 아래에는 블록에 대한 정보가 보이며 
+그러면 chaindata 디렉토리 아래에는 블록에 대한 정보가 보이며
 
-keystore 아래에는 계정에 관한 정보가 보일것이다. 
+keystore 아래에는 계정에 관한 정보가 보일것이다.
 
 ```
 -geth - chinadata, lightchaindata
 -keystore
 ```
 
-그럼 실행해보자. 
+그럼 실행해보자.
 
 ```
 geth --networkid 4649 --nodiscover --maxpeers 0 --datadir chaindata console 2>> chaindata/geth.log
 ```
 
-> -- networkdid : 네트워크 식별자로 쓰인다. 0~3까지는 예약어이다. 
+> -- networkdid : 네트워크 식별자로 쓰인다. 0~3까지는 예약어이다.
 >
-> 0 = onlympic, 1= Frontier, 2=morden\(disused\), 3=Ropsten  기본값은 1이다. 
+> 0 = onlympic, 1= Frontier, 2=morden\(disused\), 3=Ropsten  기본값은 1이다.
 >
-> -- nodiscover : 생성자의 노드를 다른 노드에서 검색할 수 없게 하는 옵션이다. 노드 추가는 수동으로 해야함, 
+> -- nodiscover : 생성자의 노드를 다른 노드에서 검색할 수 없게 하는 옵션이다. 노드 추가는 수동으로 해야함,
 >
 > -- maxpeers 0 : 생성자의 노드에 연결할 수 있는 노드의 수를 지정함, 0은 다른 노드뢍 연결안함
 >
 > -- datadir 데이터 디렉토리 저정
 >
-> console 콘솔로 진입한다. 
+> console 콘솔로 진입한다.
 >
 > 2&gt;&gt; 데이터 디렉토리/geth.log 로그 파일 만들때 사용하는 옵션 리눅스 셀 명령어
 
+이더리움에서는 계정이 두가지로 나뉜다. 
 
+* EOA \(Externally Owned Account\) 일반 사용자가 사용하는 계정이고 Ether를 송금하거나 계약 실행시 필요한 계정
+* Contract 계정은 계약을 배포시 만들어지는 나오는 계정으로 블록체인에 존재함
+
+EOA 계정생성 \(콘솔에서\)
+
+```
+> personal.newAccount("pass0")
+"0x295e3893ed0cd5fb04fbfb4bba656f509ac21aff" //계정 주소
+```
+
+계정 정보 확인
+
+```
+> eth.accounts
+["0x295e3893ed0cd5fb04fbfb4bba656f509ac21aff"]
+```
+
+exit를 하면 geth 가 자동 중지가 된다. 
+
+```
+> exit
+```
 
 
 
