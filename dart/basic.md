@@ -132,11 +132,13 @@ void main() {
 
 #### Class
 
+> toString은 이미 Object에서 정의되어 있어서 오버라이딩 방식으로 다시 정의할 수 있다.
+
 ```dart
 class Cat {
   String name;
   int age;
-  
+
   @override
   String toString() {
     return '$name , $age';
@@ -147,7 +149,7 @@ void main() {
   final cat = new Cat();
   cat.name = 'steve';
   cat.age = 10;
-  
+
   print(cat.toString());
 }
 ```
