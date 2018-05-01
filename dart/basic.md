@@ -277,7 +277,7 @@ var result = HttpRequest
 
 > 동기적으로 바꿀수도 있다.
 >
-> Async, Await 를 유의해서 보자.
+> **`Future, Async, Await`** 를 유의해서 보자.
 
 ```dart
 import "dart:async"; //이 부분 추가됨
