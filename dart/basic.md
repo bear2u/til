@@ -186,7 +186,7 @@ void main() {
 
 ```dart
 void main() {
-  
+
   try {
     String userInput = '3,14';
 
@@ -200,6 +200,29 @@ void main() {
 
 .................
 FormatException: Invalid double
+3,14
+```
+
+> 특정 예외를 잡고 싶다면
+
+```dart
+void main() {
+  
+  try {
+    String userInput = '3,14';
+
+    double doubleNum = double.parse(userInput);
+
+    print(doubleNum);  
+  } on FormatException catch (e) {
+    print("FormatException inside => $e");   
+  } catch (e) {
+    print("Global Exception => $e");
+  }  
+}
+
+..................
+FormatException inside => FormatException: Invalid double
 3,14
 ```
 
