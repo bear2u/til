@@ -1,6 +1,6 @@
 # 다트 기본
 
-온라인 다트 편집기에서 실행가능하다. 
+온라인 다트 편집기에서 실행가능하다.
 
 [https://dartpad.dartlang.org/](https://dartpad.dartlang.org/)
 
@@ -248,11 +248,11 @@ void handleError(String error) {
 }
 
 void main() {
-  
+
   var result = HttpRequest.getString('https://rebounce.online/api/time');
   result.then(handleSuccess);
   result.catchError(handleError);
-  
+
   print('Main function finshed');
 }
 
@@ -275,7 +275,7 @@ var result = HttpRequest
     });
 ```
 
-> 동기적으로 바꿀수도 있다. 
+> 동기적으로 바꿀수도 있다.
 >
 > Async, Await 를 유의해서 보자.
 
@@ -285,14 +285,14 @@ import "dart:html";
 
 //Future 확인
  Future main() async {
-  
+
   try {
-  	final response = await HttpRequest.getString('https://rebounce.online/api/time');   
-  	print('Request was ok => $response');   
+      final response = await HttpRequest.getString('https://rebounce.online/api/time');   
+      print('Request was ok => $response');   
   } catch (e) {
     print('Request error => + $e');
   }
-  
+
   print('Main function has ended');
 
 }
