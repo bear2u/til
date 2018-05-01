@@ -69,14 +69,52 @@ adder1 = 15 , adder2 = 30
 >
 > **유의할 점은 같은 타입만 추가 가능하다.**
 
-```
+```dart
 void main() {
   List<int> list = [2, 1, 3];
   list.add(4);
   print(list);
+  print(list[0]);
 }
 ..............
+
 [2, 1, 3, 4]
+2
+```
+
+> for문 사용해서 출력
+
+```dart
+void main() {
+  List<int> list = [2, 1, 3];
+  printList(list);
+}
+
+void printList(List<int> list) {
+  for(var i=0; i< list.length; i++) {
+    print(i);
+  }
+}
+```
+
+> foreach 사용
+
+```dart
+void main() {
+  List<int> list = [2, 1, 3];
+  usingForEach(list);
+}
+
+void usingForEach(List<int> list) {
+  list.forEach( (x) {
+    print(x);
+  });
+}
+
+//짧게 설정 가능
+void usingForEachShort(List<int> list) {
+  list.forEach( (x) => print(x));
+}
 ```
 
 
