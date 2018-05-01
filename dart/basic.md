@@ -160,13 +160,13 @@ void main() {
 class Cat {
   String name;
   int age;
-  
+
   //이 부분 살펴보자. 
   Cat(this.name, this.age);   
-  
+
  // 또는 타입 지정도 가능하다. 
   Cat(String this._name, int this._age); 
-  
+
   @override
   String toString() {
     return '$name , $age';
@@ -175,9 +175,32 @@ class Cat {
 
 void main() {
   final cat = new Cat('steve', 10);  
-  
+
   print(cat.toString());
 }
+```
+
+## Try / Catch
+
+> 기본적으로 예외를 잡는 부분
+
+```dart
+void main() {
+  
+  try {
+    String userInput = '3,14';
+
+    double doubleNum = double.parse(userInput);
+
+    print(doubleNum);  
+  } catch (e) {
+    print(e);
+  }  
+}
+
+.................
+FormatException: Invalid double
+3,14
 ```
 
 
