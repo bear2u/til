@@ -41,5 +41,25 @@ void main() {
 msg = 1234, value = 5678
 ```
 
+> 함수를 인자로 넣을수도 있다.
+
+```dart
+double add(double a, double b) => a + b;
+
+//Function 정의자를 유의해서 보자
+Function makeAdder(double value) {
+  return (x) => add(value, x);
+}
+
+void main() {
+  var adder1 = makeAdder(10.0);
+  var adder2 = makeAdder(20.0);
+  
+  print('adder1 = ${adder1(5)} , adder2 = ${adder2(10)}');
+}
+...................................
+adder1 = 15 , adder2 = 30
+```
+
 
 
