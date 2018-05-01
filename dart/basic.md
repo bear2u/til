@@ -130,5 +130,27 @@ void main() {
 }
 ```
 
+#### Class
+
+```dart
+class Cat {
+  String name;
+  int age;
+  
+  @override
+  String toString() {
+    return '$name , $age';
+  }
+}
+
+void main() {
+  final cat = new Cat();
+  cat.name = 'steve';
+  cat.age = 10;
+  
+  print(cat.toString());
+}
+```
+
 
 
