@@ -63,7 +63,7 @@ void main() {
 adder1 = 15 , adder2 = 30
 ```
 
-### 리스트, 맵
+### 리스트
 
 > 일반 리스트에 추가
 >
@@ -116,6 +116,21 @@ void usingForEachShort(List<int> list) {
   list.forEach( (x) => print(x));
 }
 ```
+
+#### 맵
+
+```dart
+void main() {
+  Map<String, int> cats = {
+    'ABC': 1,
+    'DEF': 2
+  };
+  
+  print(cats);
+}
+```
+
+
 
 
 
