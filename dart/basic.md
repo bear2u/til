@@ -154,5 +154,31 @@ void main() {
 }
 ```
 
+> 생성자를 바로 입력도 가능하다.
+
+```dart
+class Cat {
+  String name;
+  int age;
+  
+  //이 부분 살펴보자. 
+  Cat(this.name, this.age);   
+  
+ // 또는 타입 지정도 가능하다. 
+  Cat(String this._name, int this._age); 
+  
+  @override
+  String toString() {
+    return '$name , $age';
+  }
+}
+
+void main() {
+  final cat = new Cat('steve', 10);  
+  
+  print(cat.toString());
+}
+```
+
 
 
