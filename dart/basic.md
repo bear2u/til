@@ -1,5 +1,9 @@
 # 다트 기본
 
+온라인 다트 편집기에서 실행가능하다. 
+
+[https://dartpad.dartlang.org/](https://dartpad.dartlang.org/)
+
 ### 함수편
 
 > 기본 출력
@@ -224,6 +228,78 @@ void main() {
 ..................
 FormatException inside => FormatException: Invalid double
 3,14
+```
+
+## Async Request
+
+> 비동기 요청에 대해서 알아보자.
+
+```dart
+import "dart:html";
+
+void handleSuccess(String response) {
+  print('Request was ok');
+  print(response);
+}
+
+void handleError(String error) {
+  print('The request was not ok');
+  print(error);
+}
+
+void main() {
+  
+  var result = HttpRequest.getString('https://rebounce.online/api/time');
+  result.then(handleSuccess);
+  result.catchError(handleError);
+  
+  print('Main function finshed');
+}
+
+.............
+Main function finshed //비동기로 실행된 부분 체크하자...
+Request was ok
+{"time":"2018-05-01T05:06:35+02:00"}
+```
+
+> 체인 형태로도 가능하다.
+
+```dart
+var result = HttpRequest
+    .getString('https://rebounce.online/api/time')
+    .then((String response) {
+      print(response);
+    })
+    .catchError( (dynamic error) {
+      print(error);
+    });
+```
+
+> 동기적으로 바꿀수도 있다. 
+>
+> Async, Await 를 유의해서 보자.
+
+```dart
+import "dart:async"; //이 부분 추가됨
+import "dart:html";
+
+//Future 확인
+ Future main() async {
+  
+  try {
+  	final response = await HttpRequest.getString('https://rebounce.online/api/time');   
+  	print('Request was ok => $response');   
+  } catch (e) {
+    print('Request error => + $e');
+  }
+  
+  print('Main function has ended');
+
+}
+..........................
+
+Request was ok => {"time":"2018-05-01T05:13:52+02:00"}
+Main function has ended
 ```
 
 
