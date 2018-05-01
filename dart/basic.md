@@ -125,12 +125,10 @@ void main() {
     'ABC': 1,
     'DEF': 2
   };
-  
+
   print(cats);
 }
 ```
-
-
 
 
 
