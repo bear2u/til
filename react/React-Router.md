@@ -26,5 +26,11 @@ import { BrowserRouter, Route } from 'react-router-dom';
 </BrowserRouter>
 ```
 
+ajax 와 redux promise 설치는
+
+```
+npm install --save axios redux-promise
+```
+
 
 
