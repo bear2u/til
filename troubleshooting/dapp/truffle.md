@@ -28,8 +28,7 @@ module.exports = function (deployer) {
   deployer.deploy(ProjectFactory);
 };
 
-//migrate --reset 
-
+//truffle migrate --reset
 ```
 
 
