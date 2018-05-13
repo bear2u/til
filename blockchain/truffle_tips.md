@@ -8,7 +8,7 @@ truffle compile --contracts_build_directory=./src/build
 
 Ganache 동기화가 잘 안될땐
 
-> 블록타임을 3초정도 주고 해본다. 
+> 블록타임을 3초정도 주고 해본다.
 >
 > `ganache-cli -b 3`
 
