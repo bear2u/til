@@ -1,8 +1,6 @@
 블록체인 관련 공부하거나 참고할만한 내용정리
 
-
-
-추천 강좌. 
+추천 강좌.
 
 [https://crypto.stanford.edu/cs251/syllabus.html](https://crypto.stanford.edu/cs251/syllabus.html)
 
@@ -15,7 +13,7 @@ Every lecture is accompanied by readings that support and expand on what was cov
 | 제목 | 내용 | 진행률 |
 | :--- | :--- | :--- |
 | Lecture 1:9/26/16\(DB\) | Intro to cryptography & crypto currenciesReading:NBFMG Chapter 1 | 0% |
-|  |  Part 1: Bitcoin |  |
+|  | Part 1: Bitcoin |  |
 |  |  |  |
 | Lecture 2:9/28/16\(JB\) | Nakamoto consensusReading:NBFMG Chapter 2[Bitcoin white paper](https://bitcoin.org/bitcoin.pdf) |  |
 |  |  |  |
@@ -28,7 +26,7 @@ Every lecture is accompanied by readings that support and expand on what was cov
 | Lecture 6:10/12/16\(JB\) | Bitcoin mining strategy & attacksReading:NBFMG Chapter 5 section 5.5[Research Perspectives & Challenges](http://www.jbonneau.com/doc/BMCNKF15-IEEESP-bitcoin.pdf)section III[Bitcoin white paper](https://bitcoin.org/bitcoin.pdf)section 11[Majority is not Enough: Bitcoin Mining is Vulnerable](http://www.cs.cornell.edu/~ie53/publications/btcProcFC.pdf) |  |
 |  |  |  |
 | Lecture 7:10/17/16\(JB\) | Bitcoin community, economics & politicsReading:NBFMG Chapter 7[Measuring the Longitudinal Evolution of the Online Anonymous Marketplace Ecosystem](https://www.usenix.org/system/files/conference/usenixsecurity15/sec15-paper-soska.pdf)sections 1, 2, 4, 5[March 2013 Chain Fork Post-Mortem](https://github.com/bitcoin/bips/blob/master/bip-0050.mediawiki)[Bitcoin faces a crossroads, needs an effective decision-making process](https://freedom-to-tinker.com/blog/randomwalker/bitcoin-faces-a-crossroads-needs-an-effective-decision-making-process/) |  |
-|  |  Part 2: Extensions and altcoins |  |
+|  | Part 2: Extensions and altcoins |  |
 |  |  |  |
 | Lecture 8:10/19/16\(JB\) | Alternative approaches to mining & consensusReading:NBFMG Chapter 8[Research Perspectives & Challenges](http://www.jbonneau.com/doc/BMCNKF15-IEEESP-bitcoin.pdf)sections VI[Bitcoin-NG](https://www.usenix.org/system/files/conference/nsdi16/nsdi16-paper-eyal.pdf) |  |
 |  |  |  |
@@ -44,16 +42,16 @@ Every lecture is accompanied by readings that support and expand on what was cov
 |  |  |  |
 | Lecture 14:11/ 9/16\(JB\) | Case study: Ethereum & the DAOReading:[What's About to Happen to Ethereum and The DAO](http://www.coindesk.com/hard-fork-ethereum-dao/)[To fork or not to fork](https://blog.ethereum.org/2016/07/15/to-fork-or-not-to-fork/)[Scanning Live Ethereum Contracts for the "Unchecked-Send" Bug](http://hackingdistributed.com/2016/06/16/scanning-live-ethereum-contracts-for-bugs/) |  |
 |  |  |  |
-| Lecture 15:11/14/16\(inv\) | Sidechains  \(Pieter Wuille and Greg Maxwell\)  \[[pdf](https://crypto.stanford.edu/cs251/lectures/cc-sidechains2.pdf)\]Reading:[Enabling Blockchain Innovations with Pegged Sidechains](https://blockstream.com/sidechains.pdf) |  |
+| Lecture 15:11/14/16\(inv\) | Sidechains  \(Pieter Wuille and Greg Maxwell\)  \[[pdf](https://crypto.stanford.edu/cs251/lectures/cc-sidechains2.pdf)\]Reading:[Enabling Blockchain Innovations with Pegged Sidechains](https://blockstream.com/sidechains.pdf) |  |
 |  |  |  |
 | Lecture 16:11/16/16\(BB\) | Off-chain payment channels and the lightning networkReading:[The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments](https://lightning.network/lightning-network-paper.pdf)[A Fast and Scalable Payment Network with Bitcoin Duplex Micropayment Channels](http://www.tik.ee.ethz.ch/file/716b955c130e6c703fac336ea17b1670/duplex-micropayment-channels.pdf) |  |
 |  |  |  |
-| Holiday:    11/21/16 | Thanksgiving |  |
+| Holiday:    11/21/16 | Thanksgiving |  |
 |  |  |  |
-| Holiday:    11/23/16 | Thanksgiving |  |
-|  |  Part 3: Cryptocurrencies & the real world |  |
+| Holiday:    11/23/16 | Thanksgiving |  |
+|  | Part 3: Cryptocurrencies & the real world |  |
 |  |  |  |
-| Lecture 17:11/28/16\(inv\) | Legal aspects of virtual currency  \(Ben Lawsky\)Reading:[Bitcoin: A First Legal Analysis](http://fc14.ifca.ai/bitcoin/papers/bitcoin14_submission_7.pdf)[Letter of support for A.B. 1326](https://coincenter.org/2015/07/letter-of-support-re-ab-1326-to-california-state-senate/)\(CoinCenter\)[A License to Kill Innovation: Why A.B. 1326 is Bad for Business, Innovation, and Privacy](https://www.eff.org/deeplinks/2015/08/license-kill-innovation-why-ab-1326-californias-bitcoin-license-bad-business) |  |
+| Lecture 17:11/28/16\(inv\) | Legal aspects of virtual currency  \(Ben Lawsky\)Reading:[Bitcoin: A First Legal Analysis](http://fc14.ifca.ai/bitcoin/papers/bitcoin14_submission_7.pdf)[Letter of support for A.B. 1326](https://coincenter.org/2015/07/letter-of-support-re-ab-1326-to-california-state-senate/)\(CoinCenter\)[A License to Kill Innovation: Why A.B. 1326 is Bad for Business, Innovation, and Privacy](https://www.eff.org/deeplinks/2015/08/license-kill-innovation-why-ab-1326-californias-bitcoin-license-bad-business) |  |
 |  |  |  |
 | Lecture 18:11/30/16\(DB\) | Advanced Topics I: Post-quantum crypto, seg wit & aggregate signaturesReading:[Introduction to post-quantum cryptography](https://www.pqcrypto.org/www.springer.com/cda/content/document/cda_downloaddocument/9783540887010-c1.pdf)[Segregated witness benefits](https://bitcoincore.org/en/2016/01/26/segwit-benefits/)[Mimblewimble](https://scalingbitcoin.org/papers/mimblewimble.pdf) |  |
 |  |  |  |
@@ -61,13 +59,17 @@ Every lecture is accompanied by readings that support and expand on what was cov
 |  |  |  |
 |  | Lecture 20:12/ 7/16\(inv\) |  |
 
-
-
 # 스팀 깃허브
 
 * blockchain : [https://github.com/steemit/steem](https://github.com/steemit/steem)
 * javascript api  : [https://github.com/steemit/steem-js](https://github.com/steemit/steem-js)
 * react view : [https://github.com/steemit/condenser](https://github.com/steemit/condenser)
+
+
+
+# 노마드 코드 비트코인 클론하기
+
+* [https://academy.nomadcoders.co/courses/enrolled/289068](https://academy.nomadcoders.co/courses/enrolled/289068)
 
 
 
