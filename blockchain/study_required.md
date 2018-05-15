@@ -2,9 +2,9 @@
 
 추천 강좌.
 
-[https://crypto.stanford.edu/cs251/syllabus.html](https://crypto.stanford.edu/cs251/syllabus.html)
-
 # 스탠포드 강좌 목록
+
+[https://crypto.stanford.edu/cs251/syllabus.html](#)
 
 ### Fall 2016
 
@@ -64,8 +64,6 @@ Every lecture is accompanied by readings that support and expand on what was cov
 * blockchain : [https://github.com/steemit/steem](https://github.com/steemit/steem)
 * javascript api  : [https://github.com/steemit/steem-js](https://github.com/steemit/steem-js)
 * react view : [https://github.com/steemit/condenser](https://github.com/steemit/condenser)
-
-
 
 # 노마드 코드 비트코인 클론하기
 
