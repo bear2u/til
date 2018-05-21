@@ -88,17 +88,17 @@ package main
 import "fmt"
 
 func main() {
-	a := []int{1, 2, 3, 4, 5}
+    a := []int{1, 2, 3, 4, 5}
 
-	a = append(a, 6, 7, 8)
+    a = append(a, 6, 7, 8)
 
-	fmt.Println(a)
+    fmt.Println(a)
 
-	b := []int{11, 12, 13, 14, 15}
+    b := []int{11, 12, 13, 14, 15}
 
-	a = append(a, b...)
+    a = append(a, b...)
 
-	fmt.Println(a)
+    fmt.Println(a)
 }
 ..............
 [1 2 3 4 5 6 7 8]
@@ -113,41 +113,74 @@ package main
 import "fmt"
 
 func setX(x int) {
-	x = 0
+    x = 0
 }
 
 func setX2(x *int) {
-	*x = 0
+    *x = 0
 }
 
 func main() {
-	testOne() //변경안됨
-	testTwo() //변경됨
-	testThree()
+    testOne() //변경안됨
+    testTwo() //변경됨
+    testThree()
 }
 
 func testOne() {
-	x := 10
-	setX(x)
-	fmt.Println(x)
+    x := 10
+    setX(x)
+    fmt.Println(x)
 }
 
 func testTwo() {
-	x := 10
-	setX2(&x)
-	fmt.Println(x)
+    x := 10
+    setX2(&x)
+    fmt.Println(x)
 }
 
 func testThree() {
-	x := new(int)
-	setX2(x)
-	fmt.Println(*x)
+    x := new(int)
+    setX2(x)
+    fmt.Println(*x)
 }
 
 ................
 10
 0
 0
+```
+
+# Struct
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var rect1 Rectangle
+	rect2 := new(Rectangle)
+
+	var rect3 *Rectangle
+	rect3 = new(Rectangle)
+
+	rect1.height = 20
+	rect2.height = 70
+	rect3.height = 100
+
+	fmt.Println(rect1)
+	fmt.Println(rect2)
+	fmt.Println(rect3)
+}
+
+type Rectangle struct {
+	width, height int
+}
+
+...........
+{0 20}
+&{0 70}
+&{0 100}
 ```
 
 
