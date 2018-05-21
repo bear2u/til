@@ -158,23 +158,23 @@ package main
 import "fmt"
 
 func main() {
-	var rect1 Rectangle
-	rect2 := new(Rectangle)
+    var rect1 Rectangle
+    rect2 := new(Rectangle)
 
-	var rect3 *Rectangle
-	rect3 = new(Rectangle)
+    var rect3 *Rectangle
+    rect3 = new(Rectangle)
 
-	rect1.height = 20
-	rect2.height = 70
-	rect3.height = 100
+    rect1.height = 20
+    rect2.height = 70
+    rect3.height = 100
 
-	fmt.Println(rect1)
-	fmt.Println(rect2)
-	fmt.Println(rect3)
+    fmt.Println(rect1)
+    fmt.Println(rect2)
+    fmt.Println(rect3)
 }
 
 type Rectangle struct {
-	width, height int
+    width, height int
 }
 
 ...........
@@ -182,6 +182,8 @@ type Rectangle struct {
 &{0 70}
 &{0 100}
 ```
+
+# 메서드
 
 
 
