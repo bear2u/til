@@ -170,5 +170,13 @@ func main() {
 /api/v1/t/:name
 ```
 
+만약 파일을 정적으로 제공하고 싶으면 
+
+`/var/public/www` 형태로 가능하다. 
+
+```
+router.ServeFiles("/static/*filepath", http.Dir("d:\\test"))
+```
+
 
 
