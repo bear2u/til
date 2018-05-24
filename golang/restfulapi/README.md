@@ -102,67 +102,72 @@ curl -X GET http://localhost:8000/randomFloat
 curl -X GET http://localhost:8000/randomInt
 ```
 
-그럼 라우팅 처리를 라이트하게 만들어진 라이버러리를 가져와서 사용을 해보자. 
+그럼 라우팅 처리를 라이트하게 만들어진 라이버러리를 가져와서 사용을 해보자.
 
 ```
 go get github.com/julienschmidt/httprouter
 ```
 
-라우팅을 붙인 소스이다. 
+라우팅을 붙인 소스이다.
 
-서버에서 command를 직접 실행해서 output을 가져올 수 있다. 
+서버에서 command를 직접 실행해서 output을 가져올 수 있다.
 
 ```go
 package main
 
 import (
-	"net/http"
-	"fmt"
-	"os/exec"
-	"bytes"
-	"log"
-	"github.com/julienschmidt/httprouter"
+    "net/http"
+    "fmt"
+    "os/exec"
+    "bytes"
+    "log"
+    "github.com/julienschmidt/httprouter"
 )
 
 func getCommandOutput(command string, arguments ...string) string {
-	cmd := exec.Command(command, arguments...)
-	var out bytes.Buffer
-	var stderr bytes.Buffer
-	cmd.Stdout = &out
-	cmd.Stdout = &stderr
-	err := cmd.Start()
-	if err != nil {
-		log.Fatal(fmt.Sprint(err) + ":" + stderr.String())
-	}
-	err = cmd.Wait()
-	if err != nil {
-		log.Fatal(fmt.Sprint(err) + ":" + stderr.String())
-	}
-	return out.String()
+    cmd := exec.Command(command, arguments...)
+    var out bytes.Buffer
+    var stderr bytes.Buffer
+    cmd.Stdout = &out
+    cmd.Stdout = &stderr
+    err := cmd.Start()
+    if err != nil {
+        log.Fatal(fmt.Sprint(err) + ":" + stderr.String())
+    }
+    err = cmd.Wait()
+    if err != nil {
+        log.Fatal(fmt.Sprint(err) + ":" + stderr.String())
+    }
+    return out.String()
 }
 
 func goVersion(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-	out := getCommandOutput("C:\\Go\\bin\\go.exe", "version")
-	fmt.Println("out: " + out)
-	fmt.Fprintf(w, out)
+    out := getCommandOutput("C:\\Go\\bin\\go.exe", "version")
+    fmt.Println("out: " + out)
+    fmt.Fprintf(w, out)
 }
 
 func showParams(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-	fmt.Fprintf(w, params.ByName("name"))
+    fmt.Fprintf(w, params.ByName("name"))
 }
 
 //func goVersion(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-//	fmt.Fprintln(w, getCommandOutput("go", "version"))
+//    fmt.Fprintln(w, getCommandOutput("go", "version"))
 //}
 
 func main() {
-	// Any struct that has serveHTTP function can be a multiplexer
-	router := httprouter.New()
-	router.GET("/api/v1/go-version", goVersion)
-	router.GET("/api/v1/t/:name", showParams)
+    // Any struct that has serveHTTP function can be a multiplexer
+    router := httprouter.New()
+    router.GET("/api/v1/go-version", goVersion)
+    router.GET("/api/v1/t/:name", showParams)
 
-	log.Fatal(http.ListenAndServe(":8000", router))
+    log.Fatal(http.ListenAndServe(":8000", router))
 }
+```
+
+```
+/api/v1/go-version
+/api/v1/t/:name
 ```
 
 
