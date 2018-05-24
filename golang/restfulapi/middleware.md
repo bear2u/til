@@ -212,12 +212,12 @@ func main() {
 
 ```
 http.Handle("/city", filterContentType(setServerTimeCookie(mainLogicHandler)))
-// 이부분이 조금 체인형식이 복잡하다. 
+// 이부분이 조금 체인형식이 복잡하다.
 ```
 
-체이닝이 좀 다소 복잡하게 들어가는 편이다. 
+체이닝이 좀 다소 복잡하게 들어가는 편이다.
 
-그래서 alice 를 사용해서 나눌수 있다. 
+그래서 alice 를 사용해서 나눌수 있다.
 
 ```go
 go get github.com/justinas/alice
@@ -241,6 +241,39 @@ func main() {
     chain := alice.New(filterContentType, setServerTimeCookie).Then(mainLogicHandler)
     http.Handle("/city", chain)
     http.ListenAndServe(":8000", nil)
+}
+```
+
+Gorilla Handlers 패키지는 다양한 종류의 미들웨어를 제공한다. 
+
+```
+LoggingHandler: 아파치 공통 로그 형식으로 로그인하기
+CompressionHandler: 응답 압축 용
+RecoveryHandler: 예상치 못한 패닉으로부터 복구하기 위해
+```
+
+중간에 미들웨어를 통해서 로깅을 할 수도 있다. 
+
+```go
+package main
+import (
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
+	"log"
+	"os"
+	"net/http"
+)
+func mainLogic(w http.ResponseWriter, r *http.Request) {
+	log.Println("Processing request!")
+	w.Write([]byte("OK"))
+	log.Println("Finished processing request")
+}
+
+func main() {
+	r := mux.NewRouter()
+	r.HandleFunc("/", mainLogic)
+	loggedRouter := handlers.LoggingHandler(os.Stdout, r)
+	http.ListenAndServe(":8000", loggedRouter)
 }
 ```
 
