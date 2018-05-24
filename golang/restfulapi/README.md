@@ -180,44 +180,44 @@ router.ServeFiles("/static/*filepath", http.Dir("d:\\test"))
 
 # gorilla/mux
 
-좀 더 강력한 라이버러를 사용해보자. 
+좀 더 강력한 라이버러를 사용해보자.
 
 ```
 go get -u github.com/gorilla/mux
 ```
 
-라우팅을 좀 더 다양하게 할 수 있다. 
+라우팅을 좀 더 다양하게 할 수 있다.
 
 ```go
 package main
 
 import (
-	"net/http"
-	"fmt"
-	"log"
-	"github.com/gorilla/mux"
-	"time"
+    "net/http"
+    "fmt"
+    "log"
+    "github.com/gorilla/mux"
+    "time"
 )
 
 func ArticleHandler(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	w.WriteHeader(http.StatusOK)
-	fmt.Println(vars)
-	fmt.Fprintf(w, "Category is : %v\n", vars["category"])
-	fmt.Fprintf(w, "ID is: %v\n", vars["id"])
+    vars := mux.Vars(r)
+    w.WriteHeader(http.StatusOK)
+    fmt.Println(vars)
+    fmt.Fprintf(w, "Category is : %v\n", vars["category"])
+    fmt.Fprintf(w, "ID is: %v\n", vars["id"])
 }
 
 func main() {
-	// Any struct that has serveHTTP function can be a multiplexer
-	router := mux.NewRouter()
-	router.HandleFunc("/articles/{category}/{id:[0-9]+}", ArticleHandler)
-	srv := &http.Server{
-		Handler: router,
-		Addr: "127.0.0.1:8000",
-		WriteTimeout: 15 * time.Second,
-		ReadTimeout: 15 * time.Second,
-	}
-	log.Fatal(srv.ListenAndServe())
+    // Any struct that has serveHTTP function can be a multiplexer
+    router := mux.NewRouter()
+    router.HandleFunc("/articles/{category}/{id:[0-9]+}", ArticleHandler)
+    srv := &http.Server{
+        Handler: router,
+        Addr: "127.0.0.1:8000",
+        WriteTimeout: 15 * time.Second,
+        ReadTimeout: 15 * time.Second,
+    }
+    log.Fatal(srv.ListenAndServe())
 }
 ```
 
