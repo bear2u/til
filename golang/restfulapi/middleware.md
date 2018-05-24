@@ -75,3 +75,88 @@ Executing mainHandler...
 
 
 
+# 그럼 미들웨어 실전으로 들어가보자. 
+
+다음의 조건들을 가진 미들웨어을 만들것이다. 
+
+* POST 메소드의 경우에만 실행된다. 
+* 그리고 컨덴츠 유형이 JSON 인지 확인 
+* 응답 쿠기에 Server Time 타임 스탬프를 추가
+
+```go
+package main
+
+import (
+	"fmt"
+	"net/http"
+	"encoding/json"
+)
+
+type city struct {
+	Name string
+	Area uint64
+}
+
+func mainLogic(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		var tempCity city
+		decoder := json.NewDecoder(r.Body)
+		err := decoder.Decode(&tempCity)
+		if err != nil {
+			panic(err)
+		}
+
+		defer r.Body.Close()
+		fmt.Printf("Got %s city with area of %d sq miles\n", tempCity.Name, tempCity.Area)
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("201 - Created"))
+	} else {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		w.Write([]byte("405 - Method Not Allowed"))
+	}
+}
+
+func main() {
+	//mainLogicHandler := http.HandleFunc(mainLogic)
+	http.HandleFunc("/city", mainLogic)
+	http.ListenAndServe(":8000", nil)
+}
+
+```
+
+```
+curl -H "Content-Type: application/json" -X POST http://localhost:8000/city -d '{"name":"New York", "area":304}'
+
+curl -H "Content-Type: application/json" -X POST http://localhost:8000/city -d '{"name":"Boston", "area":89}'
+```
+
+위에 내용을 실행해보면 
+
+콘솔에는 아래와 같이 찍힐것이다. 
+
+```
+Got New York city with area of 304 sq miles
+Got Boston city with area of 89 sq miles
+```
+
+웹에는 
+
+```
+201 - Created
+201 - Created
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
