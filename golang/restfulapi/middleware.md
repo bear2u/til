@@ -244,7 +244,7 @@ func main() {
 }
 ```
 
-Gorilla Handlers 패키지는 다양한 종류의 미들웨어를 제공한다. 
+Gorilla Handlers 패키지는 다양한 종류의 미들웨어를 제공한다.
 
 ```
 LoggingHandler: 아파치 공통 로그 형식으로 로그인하기
@@ -252,28 +252,28 @@ CompressionHandler: 응답 압축 용
 RecoveryHandler: 예상치 못한 패닉으로부터 복구하기 위해
 ```
 
-중간에 미들웨어를 통해서 로깅을 할 수도 있다. 
+중간에 미들웨어를 통해서 로깅을 할 수도 있다.
 
 ```go
 package main
 import (
-	"github.com/gorilla/handlers"
-	"github.com/gorilla/mux"
-	"log"
-	"os"
-	"net/http"
+    "github.com/gorilla/handlers"
+    "github.com/gorilla/mux"
+    "log"
+    "os"
+    "net/http"
 )
 func mainLogic(w http.ResponseWriter, r *http.Request) {
-	log.Println("Processing request!")
-	w.Write([]byte("OK"))
-	log.Println("Finished processing request")
+    log.Println("Processing request!")
+    w.Write([]byte("OK"))
+    log.Println("Finished processing request")
 }
 
 func main() {
-	r := mux.NewRouter()
-	r.HandleFunc("/", mainLogic)
-	loggedRouter := handlers.LoggingHandler(os.Stdout, r)
-	http.ListenAndServe(":8000", loggedRouter)
+    r := mux.NewRouter()
+    r.HandleFunc("/", mainLogic)
+    loggedRouter := handlers.LoggingHandler(os.Stdout, r)
+    http.ListenAndServe(":8000", loggedRouter)
 }
 ```
 
