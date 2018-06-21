@@ -1,4 +1,8 @@
-# Geth 튜터리얼
+# Geth 스터디할 내용
+
+* Geth
+
+
 
 ```
 >> mkdir geth
@@ -24,8 +28,6 @@
   "coinbase": "0xBC9aAd0B1598a9388f3535272376006eeaF1eea2",
   "alloc": {}
 }
-
-
 ```
 
 ```
@@ -75,21 +77,15 @@ nonce와 mixhash의 조합은 Yellowpaper, 4.3.4에 설명 된 수학적 조건�
 
 출처: [http://blog.daum.net/\_blog/BlogTypeView.do?blogid=0PfgH&articleno=49&\_bloghome\_menu=recenttext&totalcnt=47](http://blog.daum.net/_blog/BlogTypeView.do?blogid=0PfgH&articleno=49&_bloghome_menu=recenttext&totalcnt=47)
 
-
-
 ```
 >>  geth --datadir ethereum init ethereum/genesis.json
 ```
 
 ![](/assets/geth-1.png)
 
-successfully ... 메세지가 보이면 성공적으로 세팅이 된것이다. 
+successfully ... 메세지가 보이면 성공적으로 세팅이 된것이다.
 
-그럼 디렉토리 구조는 
+그럼 디렉토리 구조는
 
-geh, geth/chaindata, geth/ethash, geth/nodes, keystore 등이 보일것이다. 
-
-
-
-
+geh, geth/chaindata, geth/ethash, geth/nodes, keystore 등이 보일것이다.
 
