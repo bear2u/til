@@ -10,3 +10,13 @@ Spring Genrate
 
 [http://start.spring.io/](http://start.spring.io/)
 
+
+
+# CDI
+
+@Inject\(@Autowired\)
+
+@Named\(@Component & @Qualifier\)
+
+@Singleton\(Defines a scope of Singleton\)
+
