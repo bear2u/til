@@ -97,23 +97,40 @@ http://localhost:8080/person/param?version=2
 ```java
 @GetMapping(value="/person/header", headers="X-API-VERSION=1")
 public PersonV1 headerV1() {
-	return new PersonV1("Bob Charlie");
+    return new PersonV1("Bob Charlie");
 }
 
 @GetMapping(value="/person/header", headers="X-API-VERSION=2")
 public PersonV2 headerV2() {
-	return new PersonV2(new Name("Bob", "Charlie"));
+    return new PersonV2(new Name("Bob", "Charlie"));
 }
-	
 ```
 
-PostMain에선 Header 값에 
+PostMain에선 Header 값에
 
 ```
 X-API-VERSION , 1 or 2
 ```
 
-를 설정해서 전송하면 된다. 
+를 설정해서 전송하면 된다.
 
+---
 
+`Produces `형태로도 버저링이 가능하다. 
+
+```java
+@GetMapping(value="/person/produces", produces="application/vnd.company.app-v1+json")
+public PersonV1 producesV1() {
+	return new PersonV1("Bob Charlie");
+}
+
+@GetMapping(value="/person/produces", produces="application/vnd.company.app-v2+json")
+public PersonV2 producesV2() {
+	return new PersonV2(new Name("Bob", "Charlie"));
+}
+```
+
+포스트맨에서 요청시 다음과 같이 가능하다. 
+
+![](/assets/spring_udemy_26_1.png)
 
