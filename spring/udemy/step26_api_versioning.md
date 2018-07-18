@@ -73,22 +73,47 @@ public class PersonalVersioningController {
 ```java
 @GetMapping(value="/person/param", params="version=1")
 public PersonV1 paramV1() {
-	return new PersonV1("Bob Charlie");
+    return new PersonV1("Bob Charlie");
 }
 
 @GetMapping(value="/person/param", params="version=2")
 public PersonV2 paramV2() {
-	return new PersonV2(new Name("Bob", "Charlie"));
+    return new PersonV2(new Name("Bob", "Charlie"));
 }
 ```
 
-으로 하고 호출시 다음과 같이 한다. 
+으로 하고 호출시 다음과 같이 한다.
 
 ```
 http://localhost:8080/person/param?version=1
 
 http://localhost:8080/person/param?version=2
 ```
+
+---
+
+그리고 Header 에 버전 정보를 주고 싶다면
+
+```java
+@GetMapping(value="/person/header", headers="X-API-VERSION=1")
+public PersonV1 headerV1() {
+	return new PersonV1("Bob Charlie");
+}
+
+@GetMapping(value="/person/header", headers="X-API-VERSION=2")
+public PersonV2 headerV2() {
+	return new PersonV2(new Name("Bob", "Charlie"));
+}
+	
+```
+
+PostMain에선 Header 값에 
+
+```
+X-API-VERSION , 1 or 2
+```
+
+를 설정해서 전송하면 된다. 
 
 
 
