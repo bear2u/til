@@ -37,8 +37,6 @@ public class SomeBean {
 }
 ```
 
-
-
 만약 리스트에서 필터링 하고 싶다면
 
 * field2, field3 필터링
@@ -46,19 +44,32 @@ public class SomeBean {
 ```java
 @GetMapping("/filtering-list")
 public MappingJacksonValue retrieveListOfSomeBeans() {
-	List list =  Arrays.asList(
-			new SomeBean("value1", "value2", "value3"),
-			new SomeBean("value11", "value22", "value33")
-			);
-	
-	SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("field2","field3");
-	
-	FilterProvider filters = new SimpleFilterProvider().addFilter("SomeBeanFilter", filter);
-	MappingJacksonValue mapping = new MappingJacksonValue(list);
-	mapping.setFilters(filters);
-	
-	return mapping;
+    List list =  Arrays.asList(
+            new SomeBean("value1", "value2", "value3"),
+            new SomeBean("value11", "value22", "value33")
+            );
+
+    SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("field2","field3");
+
+    FilterProvider filters = new SimpleFilterProvider().addFilter("SomeBeanFilter", filter);
+    MappingJacksonValue mapping = new MappingJacksonValue(list);
+    mapping.setFilters(filters);
+
+    return mapping;
 }
+```
+
+```
+[
+    {
+        "field2": "value2",
+        "field3": "value3"
+    },
+    {
+        "field2": "value22",
+        "field3": "value33"
+    }
+]
 ```
 
 
