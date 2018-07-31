@@ -33,9 +33,7 @@ for step in range(2001):
         print(step, sess.run(cost), sess.run(w), sess.run(b))
 ```
 
-`training `을 시켜서 학습된 데이터를 가지고 step이 20번째 마다 최소값등이 나오는 걸 볼 수 잇다. 
+`training`을 시켜서 학습된 데이터를 가지고 step이 20번째 마다 최소값등이 나오는 걸 볼 수 잇다.
 
-
-
-
+![](/assets/linearReg2.png)
 
