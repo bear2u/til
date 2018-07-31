@@ -37,7 +37,11 @@ for step in range(2001):
 
 ![](/assets/linearReg2.png)
 
-만약 placeholder 로 적용시 원하는 값을 후에 지정을 할수가 있다. 
+만약 placeholder 로 적용시 원하는 값을 후에 지정을 할수가 있다.
 
 ![](/assets/linearReg3.png)
+
+최종적으로 정리하자면
+
+![](/assets/linearReg4.png)
 
