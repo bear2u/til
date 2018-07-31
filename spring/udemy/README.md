@@ -10,6 +10,10 @@ Spring Genrate
 
 [http://start.spring.io/](http://start.spring.io/)
 
+RestApi
+
+[https://github.com/bear2u/spring-web-services](https://github.com/bear2u/spring-web-services)
+
 
 
 # CDI
