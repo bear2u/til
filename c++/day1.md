@@ -51,12 +51,12 @@ int main()
 {
   int x = 10;
   int y = -1;
-  
+
   if (x > y)
     cout << "x is bigger than y" << endl;
   else
     cout << "x is lower than y" << endl;
-  
+
   return 0;
 }
 ```
@@ -73,7 +73,7 @@ using namespace std;
 namespace silla
 {
     int year = 938;
-    
+
     void CentralArea()
     {
         cout << "Busan" << endl;
@@ -83,7 +83,7 @@ namespace silla
 namespace baekjae
 {
     int year = 660;
-    
+
     void CentralArea()
     {
         cout << "Seoul" << endl;
@@ -98,10 +98,9 @@ int main()
 {
   silla::CentralArea();
   baekjae::CentralArea();
-  
+
   return 0;
 }
-
 ```
 
 # 캐스팅 연산자 이해하기
@@ -122,13 +121,17 @@ int main()
     int j = (int)y / x;
     double k = y / x;
     
+    
     cout << "4.4 / 2 = ( static_cast<int>) " << i << endl;
     cout << "4,4 / 2 = (int) " << j << endl;
     cout << "4.4 / 2 = " << k << endl;
+    
+    x = (int)y; //명시적 변환
+    
+    cout << "new x : " << x << endl;
   
   return 0;
 }
-
 ```
 
 * **static\_cast &lt;&gt; : 가장 기본적인 캐스트 연산 방법**
@@ -136,5 +139,5 @@ int main()
 * const\_cast : 자료형이 갖고 있는 상수 속성을 제거
 * reinterpret\_cast&lt;&gt; : 어떠한 포인터 타입끼리도 변환할 수 있게끔 도움
 
-
+\(int\), \(char\), \(double\) 등으로 명시적으로 붙여서 변환 해줄 수도 있다. 
 
