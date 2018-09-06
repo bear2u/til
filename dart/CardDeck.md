@@ -43,8 +43,6 @@ class Card {
 }
 ```
 
-
-
 flutter 기본
 
 > 패키지
