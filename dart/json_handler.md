@@ -51,36 +51,38 @@ class ImageModel {
 }
 ```
 
-하지만 만약 여러개 속성을 파싱할때 이 방식은 좀 불편하다. 
+하지만 만약 여러개 속성을 파싱할때 이 방식은 좀 불편하다.
 
-그래서 fromJson 함수를 제공해준다. 이 함수는 JSON 을 미리 정의된 값을 매핑해주는 역할을 한다. 
+그래서 fromJson 함수를 제공해준다. 이 함수는 JSON 을 미리 정의된 값을 매핑해주는 역할을 한다.
 
 그럼 코드를 보면 이해가 빠를거라 본다. 
+
+[관련 링크](https://flutter.io/json/)
 
 ```dart
 import 'dart:convert';
 
 void main() {
   var rawJson = '{"url": "http://blah.jpg","id":1}';
-  
+
   var parsedJson = json.decode(rawJson);
   var imageModel = new ImageModel.fromJson(parsedJson);
-  
+
   print(imageModel);
-    
+
 }
 
 class ImageModel {
   int id;
   String url;  
-  
+
   ImageModel(this.id, this.url);
-  
+
   ImageModel.fromJson(Map<String, dynamic> parsedJson) 
     : id = parsedJson['id'],
       url = parsedJson['url'];
-  
-  
+
+
   String toString() {
     return '$id,$url';
   }
