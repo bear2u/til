@@ -50,15 +50,15 @@ import 'dart:async';
 void main() {
   //step 1 StreamController 등록
   final StreamController ctrl = StreamController();
-  
+
   //step 2 listen 등록
   final StreamSubscription subscription = ctrl.stream.listen((data) => print('$data'));
-  
+
   //step 3 streamcontroller 에 sink를 통해 입력
   ctrl.sink.add('Hello Stream');
   ctrl.sink.add(1004);
   ctrl.sink.add({'1':100,'2':'200'});
-  
+
   //사용 종류 후 close()
   ctrl.close();
 }
@@ -73,22 +73,22 @@ import 'dart:async';
 
 void main() {
   final StreamController ctrl = StreamController<int>.broadcast();
-  
+
   ctrl.stream
     .where((value) => value % 2 == 0) //StreamTransformer 적용함
     .listen((data) => print('$data'));
-  
+
   for(int i=0; i< 10; i++) {
     ctrl.sink.add(i);
   }
-  
+
   ctrl.close();
 }
 ```
 
 ## 그러면 Flutter에서는 연동을 어떻게 할까?
 
-Flutter Widget에서는 `StreamBuilder `라고 지원해준다. 
+Flutter Widget에서는 `StreamBuilder`라고 지원해준다.
 
 ```
 StreamBuilder<T>(
@@ -152,5 +152,5 @@ class _CounterPageState extends State<CounterPage> {
 }
 ```
 
-
+그럼 다음 시간에는 Bloc 패턴을 배워보는 시간을 가져보자.
 
