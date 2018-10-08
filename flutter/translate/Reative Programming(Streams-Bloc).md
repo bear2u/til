@@ -44,7 +44,7 @@ StreamSubscription이 할수 있는 것들은
 
 * 하나의 리스너를 통해서만 값을 배출 받을수 있다. 그 후 리스너들은 취소될 것이다. 
 
-```dart
+```
 import 'dart:async';
 
 void main() {
@@ -68,7 +68,7 @@ void main() {
 
 * 다수의 리스너에 동시에 배출을 할 수 있다. 
 
-```dart
+```
 import 'dart:async';
 
 void main() {
@@ -106,7 +106,7 @@ StreamBuilder<T>(
 
 StreamBuilder를 이용해서 Counter 를 1씩 올리는 예제
 
-```dart
+```
 import 'dart:async';
 import 'package:flutter/material.dart';
 
