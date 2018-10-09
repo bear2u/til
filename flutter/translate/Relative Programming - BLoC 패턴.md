@@ -2,9 +2,7 @@
 
 아래 내용은 [https://www.didierboelens.com/2018/08/reactive-programming---streams---bloc/](https://www.didierboelens.com/2018/08/reactive-programming---streams---bloc/) 을 공부하고 요약해놓은 글입니다.
 
-
-
-BLoC Pattern 은 구글 개발자 Paolo Soares  와 Cong Hui 에 의해서 디자인 되었다. 그리고 처음 발표된 건 2018년 DartConf 이다. 
+BLoC Pattern 은 구글 개발자 Paolo Soares  와 Cong Hui 에 의해서 디자인 되었다. 그리고 처음 발표된 건 2018년 DartConf 이다.
 
 [관련 영상](https://www.youtube.com/watch?v=PLHln7wHgPE)
 
@@ -15,7 +13,7 @@ BLoC Pattern 은 구글 개발자 Paolo Soares  와 Cong Hui 에 의해서 디�
 * 플랫폼 종속적이지 않다.
 * 환경에 종속적이지 않다.
 
-BLoC 패턴은 스트림을 이용해서 만들어진다. 
+BLoC 패턴은 스트림을 이용해서 만들어진다.
 
 ![](/assets/flutter_bloc.png)
 
@@ -57,7 +55,7 @@ final IncrementBloc bloc = BlocProvider.of<IncrementBloc>(context);
   ),
 ```
 
-그리고 BLoC 파일을 작성해준다. 
+그리고 BLoC 파일을 작성해준다.
 
 ```dart
 class IncrementBloc implements BlocBase {
@@ -148,7 +146,7 @@ class _BlocProviderState<T> extends State<BlocProvider<BlocBase>>{
 }
 ```
 
-전체 소스는 다음과 같다. 
+전체 소스는 다음과 같다.
 
 ```dart
 void main() => runApp(new MyApp());
@@ -231,7 +229,7 @@ class IncrementBloc implements BlocBase {
   }
 }
 
-/// 
+///
 ```
 
 ```dart
@@ -279,7 +277,7 @@ class _BlocProviderState<T> extends State<BlocProvider<BlocBase>>{
 
 만약 여러개의 위젯에 BLoC을 붙일수 있나?
 
-child 형태로 붙일수 있다. 
+child 형태로 붙일수 있다.
 
 ```dart
 void main() => runApp(
@@ -307,7 +305,7 @@ class CounterPage extends StatelessWidget {
   Widget build(BuildContext context){
     final IncrementBloc counterBloc = BlocProvider.of<IncrementBloc>(context);
     final ApplicationBloc appBloc = BlocProvider.of<ApplicationBloc>(context);
-    
+
     ...
   }
 }
