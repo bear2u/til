@@ -623,7 +623,7 @@ Proxy 설정을 해서 프론트와 백단을 분리를 해보자.
 
 > `nginx/default.conf`
 
-![1541321896511](1541321896511.png)
+![1541321896511](https://github.com/bear2u/til/raw/master/devops/docker-study5/1541321896511.png)
 
 ```
 upstream client {
