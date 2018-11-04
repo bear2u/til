@@ -14,7 +14,7 @@
 
 ## 개발 flow
 
-![1540662745130](1540662745130.png)
+![1540662745130](https://github.com/bear2u/til/raw/master/devops/docker-study3/1540662745130.png)
 
 ## 준비물
 
@@ -40,7 +40,7 @@ git push -u origin master
 
 Github에 푸시를 했으면 정상적으로 파일이 다 올라간 걸 확인할 수 있다. 
 
-![1540662766465](1540662766465.png)
+![1540662766465](https://github.com/bear2u/til/raw/master/devops/docker-study3/1540662766465.png)
 
 ### Travis 설정
 
@@ -48,11 +48,11 @@ https://travis-ci.org/ 에 가서 깃헙에 연동해서 로그인을 하자.
 
 설정에 가면 내가 가진 모든` repository` 가 나올텐데 거기에서 금방 올린 `docker-react2` 라는 `repo`를 검색해서 활성화를 해준다. 
 
-![1540662785192](1540662785192.png)
+![1540662785192](https://github.com/bear2u/til/raw/master/devops/docker-study3/1540662785192.png)
 
 그럼 `docker-react2` 를 클릭하면 처음 연동을 하면 비어있는 빌드 목록을 볼수 있을 것이다. 
 
-![1540662804487](1540662804487.png)
+![1540662804487](https://github.com/bear2u/til/raw/master/devops/docker-study3/1540662804487.png)
 
 
 
@@ -99,11 +99,11 @@ git push origin master
 
 푸시가 되면 `travis` 에서 자동적으로 시스템이 시작된다. 
 
-![1540662824883](1540662824883.png)
+![1540662824883](https://github.com/bear2u/til/raw/master/devops/docker-study3/1540662824883.png)
 
 정상적으로 테스팅 결과가 나오는 지 확인해본다. 
 
-![1540657923188](1540657923188.png)
+![1540657923188](https://github.com/bear2u/til/raw/master/devops/docker-study3/1540657923188.png)
 
 ### AWS Elastic Beanstalk 설정
 
@@ -114,19 +114,19 @@ AWS Elastic Beanstalk은 도커나 가상 앱을 EC2나 S3를 통해서 바로 �
 - Apllication Name: docker-react
 - Sample App
 
-![1540658045215](1540658045215.png)
+![1540658045215](https://github.com/bear2u/til/raw/master/devops/docker-study3/1540658045215.png)
 
-![1540658165674](1540658165674.png)
+![1540658165674](https://github.com/bear2u/til/raw/master/devops/docker-study3/1540658165674.png)
 
 플랫폼을 `docker`로 선택해야 한다. 그리고 `Create environment `
 
 완료가 되는 경우 오른쪽 상단에 링크를 클릭시 샘플 앱이 실행되는 걸 확인할 수 있다. 
 
-![1540658546630](1540658546630.png)
+![1540658546630](https://github.com/bear2u/til/raw/master/devops/docker-study3/1540658546630.png)
 
-![1540658491217](1540658491217.png)
+![1540658491217](https://github.com/bear2u/til/raw/master/devops/docker-study3/1540658491217.png)
 
-![1540658597342](1540658597342.png)
+![1540658597342](https://github.com/bear2u/til/raw/master/devops/docker-study3/1540658597342.png)
 
 ### Travis + aws e/b 설정
 
@@ -166,15 +166,15 @@ Travis 에서 aws에 배포할려면 api 가 필요하다.
 
 유저를 추가해준다. 
 
-![1540659477768](1540659477768.png)
+![1540659477768](https://github.com/bear2u/til/raw/master/devops/docker-study3/1540659477768.png)
 
 
 
 
 
-![1540659601521](1540659601521.png)
+![1540659601521](https://github.com/bear2u/til/raw/master/devops/docker-study3/1540659601521.png)
 
-![1540659647414](1540659647414.png)
+![1540659647414](https://github.com/bear2u/til/raw/master/devops/docker-study3/1540659647414.png)
 
 마지막에 까지 진행시 나오는 액세스키와 secret 키가 중요하기 때문에 꼭 백업해놓자. 
 
@@ -182,7 +182,7 @@ Travis 에서 aws에 배포할려면 api 가 필요하다.
 
 Travis에서 `docker-react2` 클릭 후 설정에 들어가서 키를 2개를 입력해놓으면 된다. 이 입력해놓은 걸 나중에 travis.yml 에서 변수명으로 가져와서 사용할 수 있는 것이다. 
 
-![1540659973723](1540659973723.png)
+![1540659973723](https://github.com/bear2u/til/raw/master/devops/docker-study3/1540659973723.png)
 
 travis.yml 파일에 마지막에 api를 추가해준다. 
 
@@ -223,7 +223,7 @@ git push orgin master
   COPY --from=builder /app/build /usr/share/nginx/html
   ```
 
-![1540661527589](1540661527589.png)
+![1540661527589](https://github.com/bear2u/til/raw/master/devops/docker-study3/1540661527589.png)
 
 aws에서 성공적으로 올라가졌는지 체크해보자. 
 
@@ -288,13 +288,13 @@ export default App;
 
 다시 푸시를 한 뒤에 github 에 들어가서 머지를 해보자. 
 
-![1540662015301](1540662015301.png)
+![1540662015301](https://github.com/bear2u/til/raw/master/devops/docker-study3/1540662015301.png)
 
 새로운 브랜치를 만들었기 때문에 travis 가 설정하게끔 해줘야 한다. 
 
-![1540662077213](1540662077213.png)
+![1540662077213](https://github.com/bear2u/til/raw/master/devops/docker-study3/1540662077213.png)
 
-![1540662166152](1540662166152.png)
+![1540662166152](https://github.com/bear2u/til/raw/master/devops/docker-study3/1540662166152.png)
 
 이제 정상적으로 머지를 하면 된다. 
 
@@ -302,7 +302,7 @@ export default App;
 
 이제 다시 수정된 화면을 보자.
 
-![1540662521378](1540662521378.png)
+![1540662521378](https://github.com/bear2u/til/raw/master/devops/docker-study3/1540662521378.png)
 
 
 
