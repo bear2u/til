@@ -1,4 +1,10 @@
-# 도커 & 쿠버네이트 5주차
+# 도커 & 쿠버네티스 5주차
+
+> 부산에서 매주 진행되는 스터디입니다. 
+>
+> 부산에서 다른 스터디 내용을 보실려면 [카페](https://cafe.naver.com/busandev) 에서 보실수 있습니다.
+>
+> https://www.udemy.com/docker-and-kubernetes-the-complete-guide 을 공부하고 있습니다.
 
 1주차 스터디
 
@@ -24,7 +30,7 @@
 
 인덱스를 넣으면 해당되는 피보나치 수열을 계산하는 출력해주는 앱을 개발할 예정이다. 
 
-![1541256629219](1541256629219.png)
+![1541256629219](https://github.com/bear2u/til/raw/master/devops/docker-study5/1541256629219.png)
 
 ## 화면 구성
 
@@ -34,13 +40,13 @@
 - Indicies I hava seen 에서는 지금까지 입력받은 인덱스를 저장해서 보여준다. ( by postgres db)
 - 마지막 Worker 라는 로직을 통해서 수열이 계산되어 지고 그 값이 `Redis` 에 저장되서 보여주게 된다. 
 
-![1541257175219](1541257175219.png)
+![1541257175219](https://github.com/bear2u/til/raw/master/devops/docker-study5/1541257175219.png)
 
 ## 서비스 구성
 
-![1541256933268](1541256933268.png)
+![1541256933268](https://github.com/bear2u/til/raw/master/devops/docker-study5/1541256933268.png)
 
-![1541257225557](1541257225557.png)
+![1541257225557](https://github.com/bear2u/til/raw/master/devops/docker-study5/1541257225557.png)
 
 - Nginx` 서버를 통해서 접근된다. 
 - 프론트는 `React Server` 로 프록시 된다. 
@@ -376,9 +382,9 @@ export default App;
 
 ## 도커 구성
 
-![1541258576369](1541258576369.png)
+![1541258576369](https://github.com/bear2u/til/raw/master/devops/docker-study5/1541258576369.png)
 
-![1541258668555](1541258668555.png)
+![1541258668555](https://github.com/bear2u/til/raw/master/devops/docker-study5/1541258668555.png)
 
 
 
@@ -388,7 +394,7 @@ export default App;
 
 > `complex` 폴더
 
-![1541258847725](1541258847725.png)
+![1541258847725](https://github.com/bear2u/til/raw/master/devops/docker-study5/1541258847725.png)
 
 ## Client Dockerfile.dev
 
@@ -449,7 +455,7 @@ CMD ["npm", "run", "dev"]
 
 우리가 구성할 건 다음과 같은 형태를 지닌다. 
 
-![1541317170356](1541317170356.png)
+![1541317170356](https://github.com/bear2u/til/raw/master/devops/docker-study5/1541317170356.png)
 
 그러면 하나씩 구성해보도록 하자.  마지막에 설정한 환경변수는 각각의 폴더내 `keys.js` 에 들어갈 내용들이다. 
 
@@ -484,7 +490,7 @@ dockerfile들을 한번에 순서대로 만들기 위한 통합파일을 만들�
   > docker-compose up
   ```
 
-  ![1541317907401](1541317907401.png)
+  ![1541317907401](https://github.com/bear2u/til/raw/master/devops/docker-study5/1541317907401.png)
 
 - `redis`
 
@@ -497,7 +503,7 @@ dockerfile들을 한번에 순서대로 만들기 위한 통합파일을 만들�
   docker-compose up
   ```
 
-  ![1541318365509](1541318365509.png)
+  ![1541318365509](https://github.com/bear2u/til/raw/master/devops/docker-study5/1541318365509.png)
 
 
 - `server`
@@ -522,7 +528,7 @@ dockerfile들을 한번에 순서대로 만들기 위한 통합파일을 만들�
 
     - 환경 설정시 `variableName` 지정을 안 하는 경우 현재 시스템에 있는 변수로 적용된다.
 
-    ![1541318695353](1541318695353.png)
+    ![1541318695353](https://github.com/bear2u/til/raw/master/devops/docker-study5/1541318695353.png)
 
     ```
         # Specify env variables
@@ -609,7 +615,7 @@ services:
 
 ## nginx
 
-![1541321649446](1541321649446.png)
+![1541321649446](https://github.com/bear2u/til/raw/master/devops/docker-study5/1541321649446.png)
 
 Proxy 설정을 해서 프론트와 백단을 분리를 해보자. 
 
@@ -703,17 +709,17 @@ http://localhost:3050
 
 정상적으로 React 서버가 뜨는 걸 볼수 있다. 
 
-![1541326917598](1541326917598.png)
+![1541326917598](https://github.com/bear2u/til/raw/master/devops/docker-study5/1541326917598.png)
 
 하지만 개발자 도구에 콘솔을 열어보면 웹소켓 문제가 보인다. 
 
-![1541326944986](1541326944986.png)
+![1541326944986](https://github.com/bear2u/til/raw/master/devops/docker-study5/1541326944986.png)
 
 실시간 연동이 안될 뿐이지 다시 새로고침을 해보면 정상적으로 저장된 걸 볼수 있다. 
 
 - `5번째 피보나치 수는 8이다.`
 
-![1541327068667](1541327068667.png)
+![1541327068667](https://github.com/bear2u/til/raw/master/devops/docker-study5/1541327068667.png)
 
 그러면 `nginx` 서버에서 `웹소켓`을 설정해서 실시간 반영이 되도록 해보자. 
 
@@ -730,7 +736,7 @@ location /sockjs-node {
 
 `Dockerfile` 을 새로 빌드해서 `up` 을 해보자.
 
-![1541327666979](1541327666979.png)
+![1541327666979](https://github.com/bear2u/til/raw/master/devops/docker-study5/1541327666979.png)
 
 정상적으로 보여지는 걸 볼수 있다. 
 
@@ -753,3 +759,5 @@ componentDidMount() {
 3. window에서 종종 오류가 나기 때문에 mac이나 리눅스에서 하길 추천한다. 
 
 > 여기까지 소스는  [Github](https://github.com/bear2u/docker_study_examp1) 에서 받을 수 있다. 
+
+이상으로 5주차 도커&쿠버네이트 수업 정리를 마치도록 한다.
