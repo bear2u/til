@@ -48,7 +48,7 @@
 - `Express Server`는 `Redis` 로 값을 호출하지만 있는 경우 바로 리턴이 되겠지만 없는 경우 `Worker` 를 통해서 계산된 값을 다시 가져와서 저장하고 리턴을 한다. 
 - 마지막으로 유저가 입력한 index은 저장을 `postgres` 통해서 한다.
 
-> 이후에 진행되는 [소스](https://github.com/bear2u/docker_study_examp1)는 여기에서 받을수 있다.
+> 이후에 진행되는 [소스](https://github.com/bear2u/docker_study_examp1/tree/eb8932b6b0acdcfed706177ed9f97bd21e3f57e5)는 여기에서 받을수 있다.
 
 ## 소스 구성
 
@@ -368,7 +368,7 @@ export default App;
 
 
 
->  위의 모든 소스는 [여기](https://github.com/bear2u/docker_study_examp1)에서 받을수 있다. 
+>  위의 모든 소스는 [여기](https://github.com/bear2u/docker_study_examp1/tree/eb8932b6b0acdcfed706177ed9f97bd21e3f57e5)에서 받을수 있다. 
 
 
 
@@ -390,7 +390,7 @@ export default App;
 
 ![1541258847725](1541258847725.png)
 
-### Client Dockerfile.dev
+## Client Dockerfile.dev
 
 > Client > Dockerfile.dev
 
@@ -432,3 +432,324 @@ CMD ["npm", "run", "dev"]
 
 커넥션 오류가 나올것이다. 아직 DB를 올린게 아니라서 그렇다. 
 
+## Worker
+
+> workder > Dockerfile.dev
+
+```
+FROM node:alpine
+WORKDIR "/app"
+COPY ./package.json ./
+RUN npm install
+COPY . .
+CMD ["npm", "run", "dev"]
+```
+
+## Dcoker-Compose
+
+우리가 구성할 건 다음과 같은 형태를 지닌다. 
+
+![1541317170356](1541317170356.png)
+
+그러면 하나씩 구성해보도록 하자.  마지막에 설정한 환경변수는 각각의 폴더내 `keys.js` 에 들어갈 내용들이다. 
+
+```javascript
+module.exports = {
+  redisHost: process.env.REDIS_HOST,
+  redisPort: process.env.REDIS_PORT,
+  pgUser: process.env.PGUSER,
+  pgHost: process.env.PGHOST,
+  pgDatabase: process.env.PGDATABASE,
+  pgPassword: process.env.PGPASSWORD,
+  pgPort: process.env.PGPORT
+};
+```
+
+### docker-compose.yml
+
+dockerfile들을 한번에 순서대로 만들기 위한 통합파일을 만들어준다. 위치는 root 에서 만든다. 
+
+> docker-compose.yml
+
+- `Postgres`
+
+  ```ym
+  version: '3'
+  services:
+    postgres:
+      image: 'postgres:latest'
+  ```
+
+  ```
+  > docker-compose up
+  ```
+
+  ![1541317907401](1541317907401.png)
+
+- `redis`
+
+  ```
+  redis:
+      image: 'redis:latest'
+  ```
+
+  ```
+  docker-compose up
+  ```
+
+  ![1541318365509](1541318365509.png)
+
+
+- `server`
+
+  - **Specify build**
+
+    ```
+    build:
+        dockerfile: Dockerfile.dev
+        context: ./server
+    ```
+
+  - **Specify volumes**
+
+    ```
+    volumes:
+          - /app/node_modules
+          - ./server:/app
+    ```
+
+  - **Specify env variables**
+
+    - 환경 설정시 `variableName` 지정을 안 하는 경우 현재 시스템에 있는 변수로 적용된다.
+
+    ![1541318695353](1541318695353.png)
+
+    ```
+        # Specify env variables
+        environment:
+          - REDIS_HOST:redis
+          - REDIS_PORT:6379
+          - PGUSER:postgres
+          - PGHOST:postgres
+          - PGDATABASE:postgres
+          - PGPASSWORD:postgres_password
+          - PGPORT:5432
+    ```
+
+- `Client `
+
+  ```
+    client:
+      build:
+        dockerfile: Dockerfile.dev
+        context: ./client 
+      volumes:
+        - /app/node_modules
+        - ./client:/app  
+  ```
+
+- `worker`
+
+  ```
+    worker:
+      build:
+        dockerfile: Dockerfile.dev
+        context: ./client    
+      volumes:
+        - /app/node_modules
+        - ./worker:/app 
+  ```
+
+전체 소스는 다음과 같다. 
+
+> `docker-compose.yml`
+
+```
+version: '3'
+services:
+  postgres:
+    image: 'postgres:latest'
+  redis:
+    image: 'redis:latest'  
+  server:
+    # Specify build   
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./server      
+    # Specify volumes
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    # Specify env variables
+    environment:
+      - REDIS_HOST:redis
+      - REDIS_PORT:6379
+      - PGUSER:postgres
+      - PGHOST:postgres
+      - PGDATABASE:postgres
+      - PGPASSWORD:postgres_password
+      - PGPORT:5432
+  client:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client    
+    volumes:
+      - /app/node_modules
+      - ./client:/app    
+  worker:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client    
+    volumes:
+      - /app/node_modules
+      - ./worker:/app       
+```
+
+
+
+## nginx
+
+![1541321649446](1541321649446.png)
+
+Proxy 설정을 해서 프론트와 백단을 분리를 해보자. 
+
+`nginx docker` 이미지에 기본 설정을 `client`와 `server` 를 추가해서 proxy 해주도록 하자. 
+
+> `nginx/default.conf`
+
+![1541321896511](1541321896511.png)
+
+```
+upstream client {
+    server client:3000;
+}
+
+upstream server {
+    server server:5000;
+}
+
+server {
+    listen 80;
+
+    location / {
+        proxy_pass http://client;
+    }
+
+    location /api {
+        rewrite /api/(.*) /$1 break;
+        proxy_pass http://server;
+    }
+}
+
+```
+
+- ` rewrite /api/(.*) /$1 break;` 는 `/api` 로 들어오는 경우 내부에서 다시 `/` 로변경해주기 위함
+- client 는 3000 포트로 내부에서 proxy 되며
+- server 는 5000 포트로 내부에서 proxy 된다. 
+- 외부에서는 80 포트만으로 제어한다.
+
+### DockerFile.dev 생성
+
+> nginx/Dockerfile.dev
+
+```
+FROM nginx
+COPY ./default.conf /etc/nginx/conf.d/default.conf
+```
+
+- `nginx` 도커 이미지를  가져온다.
+- 기본 설정 `default.conf` 파일을 도커 이미지내 설정으로 덮어쓴다.
+
+### docker-compose 에 nginx 추가
+
+- `nginx` 폴더내 `Dockerfile.dev` 를 참조해서 생성한다. 
+- `localhost`는 3050으로 설정하고 `nginx` 도커는 80 으로 바인딩 해준다. 
+- 문제가 생길 경우 자동으로 재실행을 해준다.
+
+```
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx  
+    ports:
+      - '3050:80'  
+```
+
+## docker-compose 실행
+
+이제 잘되는지 실행을 해보자. 모든 도커 파일을 다시 만들도록 하자. 
+
+```
+docker-compose up --build
+```
+
+서버가 정상적으로 실행된 것 확인하기 위해선 진입점을 확인해야 한다. 
+
+이전에 nginx 서버는 3050포트와 바인딩된 상태이다. 
+
+```
+    ports:
+      - '3050:80'
+```
+
+그럼 이제 확인해본다. 
+
+```
+http://localhost:3050
+```
+
+## React 서버 실행
+
+정상적으로 React 서버가 뜨는 걸 볼수 있다. 
+
+![1541326917598](1541326917598.png)
+
+하지만 개발자 도구에 콘솔을 열어보면 웹소켓 문제가 보인다. 
+
+![1541326944986](1541326944986.png)
+
+실시간 연동이 안될 뿐이지 다시 새로고침을 해보면 정상적으로 저장된 걸 볼수 있다. 
+
+- `5번째 피보나치 수는 8이다.`
+
+![1541327068667](1541327068667.png)
+
+그러면 `nginx` 서버에서 `웹소켓`을 설정해서 실시간 반영이 되도록 해보자. 
+
+> `nginx>default.conf`
+
+```
+location /sockjs-node {
+    proxy_pass http://client;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "Upgrade";
+}
+```
+
+`Dockerfile` 을 새로 빌드해서 `up` 을 해보자.
+
+![1541327666979](1541327666979.png)
+
+정상적으로 보여지는 걸 볼수 있다. 
+
+## 문제점
+
+1. 만약 submit 을 했는데 실시간으로 변경이 안되는 경우
+
+`client/Fib.js` 에 다음과 같은 코드를 넣어야 한다. 
+
+```
+componentDidMount() {
+  setInterval(() => {
+    this.fetchValues();
+    this.fetchIndexes();
+  }, 1000)
+}
+```
+
+2. docker-compose up 을 할때 오류가 나면 다시 up 을 해주자. 
+3. window에서 종종 오류가 나기 때문에 mac이나 리눅스에서 하길 추천한다. 
+
+> 여기까지 소스는  [Github](https://github.com/bear2u/docker_study_examp1) 에서 받을 수 있다. 
