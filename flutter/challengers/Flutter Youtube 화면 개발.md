@@ -5,11 +5,11 @@
 - 1주차 스터디 : [TodoList 화면 개발](http://javaexpert.tistory.com/985)
 - 전체 소스는 [Github](https://github.com/bear2u/youtube_clone_app) 에서 받으실수 있습니다.
 
-![screen](screen.png)
+![screen](https://github.com/bear2u/til/blob/master/flutter/challengers/screen.png)
 
 
 
-![screen2](screen2.png)
+![screen2](https://github.com/bear2u/til/raw/master/flutter/challengers/screen.png)
 
 2주차 스터디는 Youtube Api를 활용해서 화면 구성을 공부해보는 시간을 가져봅니다. 
 
