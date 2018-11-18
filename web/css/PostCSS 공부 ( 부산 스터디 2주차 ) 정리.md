@@ -249,7 +249,7 @@ li:matches(:nth-child(even), .target) {
 
 - li태그에 대해서 짝수번째만 선택 하고 , target 클래스가 있는걸 동시에 배경을 변경하도록 한다. 
 
-![1541947521302](1541947521302.png)
+<img src="https://github.com/bear2u/til/raw/master/web/css/1541947521302.png" width="100%">
 
 빨간 박스는 `target` 이어서 선택이 된것을 볼 수 있다. 
 
@@ -279,7 +279,7 @@ li:first-child a{
 }
 ```
 
-![1541947942968](1541947942968.png)
+<img src="https://github.com/bear2u/til/raw/master/web/css/1541947942968.png" width="300px">
 
 ## Custom Selector
 
@@ -291,7 +291,9 @@ li:first-child a{
 }
 ```
 
-![1541948826888](1541948826888.png)
+
+
+<img src="https://github.com/bear2u/til/raw/master/web/css/1541948826888.png" width="150px">
 
 ## Custom media & range
 
@@ -397,7 +399,7 @@ main {
   }
 ```
 
-![1541950016892](1541950016892.png)
+<img src="https://github.com/bear2u/til/raw/master/web/css/1541950016892.png" width="100%">
 
 ## 기타
 
@@ -407,11 +409,11 @@ main {
 
 - [flexbox froggy ( flex 게임형태의 연습형)](https://flexboxfroggy.com/#ko)
 
-  ![1541950339929](1541950339929.png)
+  ![1541950339929](https://github.com/bear2u/til/raw/master/web/css/1541950339929.png)
 
 - [css grid (Grid 게임형태의 연습 사이트)](https://cssgridgarden.com/#ko)
 
-  ![1541950362364](1541950362364.png)
+  ![1541950362364](https://github.com/bear2u/til/raw/master/web/css/1541950362364.png)
 
 
 
