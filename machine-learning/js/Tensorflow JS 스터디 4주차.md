@@ -453,5 +453,342 @@ features
 
 그럼 이제 다음 내용에는 실제 데이터를 가지고 작업을 해보자. 
 
+## 소스 준비
+
+```
+git clone https://github.com/StephenGrider/MLKits.git
+git checkout 84f617c4549409c104aa994465101d1a8fd164e2
+
+npm install
+```
+
+![1544706669880](1544706669880.png)
+
+### index.js
+
+이제 위에서 공부했던 내용을 코드로 옮겨보자.
+
+기본적으로 모듈은 두개를 설치를 한다. 
+
+```javascript
+require('@tensorflow/tfjs-node');
+// 만약 gpu 를 사용시 tfjs-node-gpu 적용
+const tf = require('@tensorflow/tfjs');
+```
+
+### load csv file
+
+이미 준비된 데이터를 이용한다. 
+
+```javascript
+require('@tensorflow/tfjs-node');
+const tf = require('@tensorflow/tfjs');
+const loadCSV = require('./load-csv');
+
+let { features, labels, testFeatures, testLabels } = loadCSV('kc_house_data.csv', {
+    // 무작위로 섞기
+    shuffle: true,
+    // 테스트셋 지정 -> testfeatures, testlabels
+    splitTest: 10,
+    // features 지정 (위도, 경도) -> features
+    dataColumns: ['lat', 'long'],
+    // price 지정 -> label
+    labelColumns: ['price'],    
+});
+
+console.log(testFeatures);
+console.log(testLabels);
+```
+
+```
+[ [ 47.561, -122.226 ],
+  [ 47.6595, -122.186 ],
+  [ 47.5081, -122.093 ],
+  [ 47.5276, -122.161 ],
+  [ 47.6695, -122.333 ],
+  [ 47.6769, -122.36 ],
+  [ 47.5442, -122.141 ],
+  [ 47.699, -122.206 ],
+  [ 47.3196, -122.399 ],
+  [ 47.2843, -122.357 ] ]
+[ [ 1085000 ],
+  [ 466800 ],
+  [ 425000 ],
+  [ 565000 ],
+  [ 759000 ],
+  [ 512031 ],
+  [ 768000 ],
+  [ 1532500 ],
+  [ 204950 ],
+  [ 247000 ] ]
+```
+
+### Tensorflow JS 작성
+
+```javascript
+function knn(features, labels, predictionPoint, k) {
+    return features
+        .sub(predictionPoint)
+        .pow(2)
+        .sum(1)
+        .pow(0.5)
+        .expandDims(1)
+        .concat(labels, 1)
+        .unstack()
+        .sort((a, b) => {
+            a.get(0) > b.get(0) ? 1 : -1
+        })
+        .slice(0, k)
+        .reduce((acc, pair) => acc + pair.get(1), 0) / k;
+}
+```
+
+### knn 함수 적용
+
+- `변수들을 텐서로 변환해서 사용해야 한다`
+
+```javascript
+features = tf.tensor(features);
+labels = tf.tensor(labels);
+testFeatures = tf.tensor(testFeatures);
+testLabels = tf.tensor(testLabels);
+```
+
+- 하나의 값만 우선 테스팅 하기 위해 `testFeatures[0]` 으로 가져온다. 
+
+```javascript
+const result = knn(features, labels, tf.tensor(testFeatures[0]), 10);
+console.log('Guess', result, testLabels[0][0]);
+
+.....
+Guess 559100 1085000
+```
+
+하지만 `559100` `1085000` 두개의 값이 가격 차이가 너무 나는 걸 볼 수 있다. 
+
+이걸 다시 개선하는 방법에 대해서 공부해보자. 
+
+### 정확도
+
+- 우선 에러가 작을수록 좋다. 이걸 측정해보자.
+
+![1544708102786](1544708102786.png)
+
+위의 공식을 코드로 구현하면 다음과 같다.
+
+```javascript
+const err = (testLabels[0][0] - result) / testLabels[0][0];
+console.log('Err', err * 100);
+
+.......
+Err 48.47004608294931
+```
+
+약 48프로 정도 에러가 발생하고 있다. 
+
+그럼 전체 testFeatures 에 대해 불정확률을 구해보면
+
+```javascript
+testFeatures.forEach((testPoint, i) => {
+    const result = knn(features, labels, tf.tensor(testPoint), 10);
+    const err = (testLabels[i][0] - result) / testLabels[i][0];
+    console.log('Err', err * 100);
+});
+
+....
+Err 48.47004608294931
+Err -19.77292202227935
+Err -31.55294117647059
+Err 1.0442477876106195
+Err 26.337285902503293
+Err -9.192607478844055
+Err 27.200520833333336
+Err 63.51712887438825
+Err -172.79824347401805
+Err -126.35627530364373
+```
+
+이러한 내용에 좀 더 정확도를 올리기 위해 좀 더 추가적인 `features` 를 추가해본다. 
+
+- `sqft_lot` : 평방 피트
+
+```
+let { features, labels, testFeatures, testLabels } = loadCSV('kc_house_data.csv', {
+    // 무작위로 섞기
+    shuffle: true,
+    // 테스트셋 지정 -> testfeatures, testlabels
+    splitTest: 10,
+    // features 지정 (위도, 경도) -> features
+    dataColumns: ['lat', 'long', 'sqft_lot'],
+    // price 지정 -> label
+    labelColumns: ['price'],
+});
+```
+
+### 표준화
+
+처음에 배웠던 내용중에 normalize 하는 방법에 대해서 공부를 했었다. 
+
+![1544708829630](1544708829630.png)
+
+>  표준화 하는 과정
+
+![1544708882008](1544708882008.png)
+
+이 방법을 지금 내용에 도입해보자. 
+
+- 중간에 너무 범위가 커서 제대로된 표준화가 힘들어 보이는 문제점이 있다
+
+![1544709183947](1544709183947.png)
+
+이 부분을 해결하기 위해서 새로운 함수를 적용시켜 보자. 
+
+- `StandartDeviation` : 표준편차
+
+![1544709363419](1544709363419.png)
+
+### moments
+
+tensorflowjs 에는  함수를 제공 한다. => `moments`
+
+예시를 들어보자. 
+
+```
+const numbers = tf.tensor([
+	[1, 2],
+  [3, 4],
+  [5, 6]
+]);
+
+tf.moments(numbers);
+
+....
+{"mean":{"isDisposedInternal":false,"shape":[],"dtype":"float32","size":1,"strides":[],"dataId":{},"id":41,"rankType":"0"},"variance":{"isDisposedInternal":false,"shape":[],"dtype":"float32","size":1,"strides":[],"dataId":{},"id":50,"rankType":"0"}}
+```
+
+우리는 여기에서 `mean` 과 `variance` 를 사용할 수 있다.
+
+- `average` : `mean`
+
+- `value` : `numbers`
+- `StandartDeviation` :  `sqrt(variance)`
+
+![1544709860334](1544709860334.png)
+
+```
+const numbers = tf.tensor([
+  [1, 2],
+  [3, 4],
+  [5, 6]
+]);
+
+// 0은 축을 바꿔서 계산한다.
+const { mean, variance} = tf.moments(numbers, 0);
+
+numbers.sub(mean).div(variance.pow(.5))
+
+.........
+[[-1.2247449, -1.2247449], [0 , 0 ], [1.2247449 , 1.2247449 ]]
+```
+
+이제 본 소스에 적용해보자. 
+
+```javascript
+function knn(features, labels, predictionPoint, k) {
+    const { mean, variance } = tf.moments(features, 0);
+
+    const scaledPrediction = predictionPoint.sub(mean).div(variance.pow(0.5))
+
+    return features
+        .sub(mean)
+        .div(variance.pow(0.5))
+        .sub(scaledPrediction)
+        .pow(2)
+        .sum(1)
+        .pow(0.5)
+        .expandDims(1)
+        .concat(labels, 1)
+        .unstack()
+        .sort((a, b) => {
+            a.get(0) > b.get(0) ? 1 : -1
+        })
+        .slice(0, k)
+        .reduce((acc, pair) => acc + pair.get(1), 0) / k;
+}
+```
+
+```
+Error -15.323502304147466
+Error -11.344580119965723
+Error -2.047058823529412
+Error 19.327433628318584
+Error 7.806324110671936
+Error -14.106372465729613
+Error -8.782552083333334
+Error 13.227406199021207
+Error -36.336911441815076
+Error 7.381578947368421
+```
+
+30프로정도 확률안에서 도는 정도까지 수정했다. 
+
+이 보다 정확도를 올리는 방법은 두가지가 있다. 
+
+- `testFeatures` 수를 좀 더 수를 늘리거나
+- 훈련수를 늘리거나
+
+이건 다음 알고리즘 수업을 통해서 공부를 해보자.
+
+## 전체 소스
+
+```javascript
+require('@tensorflow/tfjs-node');
+const tf = require('@tensorflow/tfjs');
+const loadCSV = require('./load-csv');
+
+function knn(features, labels, predictionPoint, k) {
+  const { mean, variance } = tf.moments(features, 0);
+
+  const scaledPrediction = predictionPoint.sub(mean).div(variance.pow(0.5));
+
+  return (
+    features
+      .sub(mean)
+      .div(variance.pow(0.5))
+      .sub(scaledPrediction)
+      .pow(2)
+      .sum(1)
+      .pow(0.5)
+      .expandDims(1)
+      .concat(labels, 1)
+      .unstack()
+      .sort((a, b) => (a.get(0) > b.get(0) ? 1 : -1))
+      .slice(0, k)
+      .reduce((acc, pair) => acc + pair.get(1), 0) / k
+  );
+}
+
+let { features, labels, testFeatures, testLabels } = loadCSV(
+  'kc_house_data.csv',
+  {
+    shuffle: true,
+    splitTest: 10,
+    dataColumns: ['lat', 'long', 'sqft_lot', 'sqft_living'],
+    labelColumns: ['price']
+  }
+);
+
+features = tf.tensor(features);
+labels = tf.tensor(labels);
+
+testFeatures.forEach((testPoint, i) => {
+  const result = knn(features, labels, tf.tensor(testPoint), 10);
+  const err = (testLabels[i][0] - result) / testLabels[i][0];
+  console.log('Error', err * 100);
+});
+```
+
+
+
 
 
