@@ -85,7 +85,7 @@
 
 구글 로그인을 하는데 오른쪽 프로필 이미지를 로그인 후 변하도록 하고 다시 클릭시 로그아웃 다이얼로그 창이 나오도록 하자. 
 
-![image-20181114124552756](image-20181114124552756.png)
+![image-20181114124552756](https://github.com/bear2u/til/raw/master/flutter/challengers/image-20181114124552756.png)
 
 - Firebase Auth 라이버러리 추가
 
@@ -163,7 +163,7 @@ _getProfileCircleImage() {
 - `Firebase Stroage`
 - `Image Picker`
 
-![image-20181114154240806](image-20181114154240806-2177760.png)
+![image-20181114154240806](https://github.com/bear2u/til/raw/master/flutter/challengers/image-20181114154240806-2177760.png)
 
 포토 아이콘을 클릭시 Image Picker 가 실행된다. 
 
