@@ -1,6 +1,6 @@
 # 쿠버네티스 2번째 시간
 
-pod 자세한 설명 스크립트
+## pod 자세한 설명 스크립트
 
 ```
 # kubectl describe <object type> <object name>
@@ -197,4 +197,144 @@ client-deployment-89bb69575-54pnn     1/1       Running   0          7m        1
 ```
 
 ![image-20190209120048329](assets/image-20190209120048329.png)
+
+```
+kubectl describe pods client-deployment
+```
+
+- deployment.yaml 에서 replica를 변경시 숫자를 주목하자
+
+```
+...
+replicas: 5
+....
+```
+
+```
+$ kubectl apply -f client-deployment.yaml
+
+$ kubectl get deployment
+NAME                  DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+client-deployment     5         3         3            1           56d
+```
+
+- 하나씩 하나씩 올라가는 걸 확인 할 수 있다. 
+
+
+
+## 도커 업데이트 이미지 배포
+
+만약 도커내 이미지가 업데이트 되는 경우 배포를 하는 경우에 대해서 알아보자
+
+- 도커 허브에 푸시
+- 마지막 이미지를 다시 가져와서 배포
+
+```
+kubectl apply -f client-deployment.yaml
+
+nothing changed
+```
+
+하지만 이미 변경된 내용이 없기 때문에 적용이 안된다. 이 부분을 해결하기 위해서는 다음 3가지의 방법이 있을 수 있다
+
+- 수동으로 설정을 삭제한다 (비추천)
+- **태그별로 이미지를 만들어서 업데이트 진행(많이 쓰는 편)**
+  - 이미지가 변경되기 때문에 새로운 포드가 올라가고 업데이트를 진행한다
+  - ex) bear2u/multi-client:v1...v2
+- **선언형 명령어로 업데이트 선언**
+
+
+
+### 새로운 업데이트 단계
+
+1. 도커 이미지 태그별로 생성
+
+   ```
+   docker build -t bear2u/multi-client:v2 .
+   ```
+
+2. 도커 허브로 푸시
+
+   ```
+   docker push <tag>
+   ```
+
+3. 쿠버네티스 업데이트 명령어로 실행
+
+   ```
+   # kubectl set image <object_type> / <object_name> <container_name> = <new image to use>
+   
+   $ kubectl set image deployment/client-deployment client=bear2u/multi-client:v2
+   ```
+
+4. 업데이트 서버 테스트
+
+   ```
+   http://192.168.99.100:31515
+   ```
+
+![image-20190209130349946](assets/image-20190209130349946.png)
+
+![image-20190209131039743](assets/image-20190209131039743.png)
+
+- 현재 로컬에 있는 도커와 쿠버네티스(미니큐브)는 다른 가상서버라서 도커가 분리되서 공유되지 않는다
+
+해당 미니큐브 서버로 접속하기 위해서는 eval 명령어를 이용할 수 있다. (도커 환경 설정이 가능하다)
+
+실행시 미니큐브에 있는 도커 콘테이너를 볼수 있다
+
+```
+$ eval $(minikube docker-env)
+$ docker ps
+........
+CONTAINER ID        IMAGE                        COMMAND                  CREATED             STATUS PORTS                                                                NAMES
+5551a5172d45        bear2u/multi-client          "nginx -g 'daemon of…"   14 minutes ago      Up 14 minutes                                                                      k8s_client_client-deployment-747d8c754-kncgq_default_17678d42-2c1f-11e9-8634-08002761bac3_0
+5d2e22a0c7c9        k8s.gcr.io/pause-amd64:3.1   "/pause"                 14 minutes ago      Up 14 minutes                                                                      k8s_POD_client-deployment-747d8c754-kncgq_d
+```
+
+```
+$ minikube docker-env
+
+export DOCKER_TLS_VERIFY="1"
+export DOCKER_HOST="tcp://192.168.99.100:2376"
+export DOCKER_CERT_PATH="/Users/bear2u/.minikube/certs"
+export DOCKER_API_VERSION="1.35"
+# Run this command to configure your shell:
+# eval $(minikube docker-env)
+```
+
+### 그럼 이 과정이 필요한 이유는 ?
+
+- 직접 쿠버네티스 노드 안에 도커 로그를 확인할 경우
+
+- 쿠버네티스내 캐싱된 도커들 정리할 경우
+
+  - ```
+    docker system prune -a
+    ```
+
+
+
+### kubectl 로 minikube 도커로 접속가능
+
+```
+kubectl exec -it <docker image name>
+kubectl logs <docker image name>
+```
+
+
+
+## 결론
+
+오늘 공부한 내용은 다음과 같다. 
+
+- 포드에 대한 설명 및 실행 스크립트
+- 업데이트시 하는 방법에 대해서 고민
+- Pods와 Depolyment와의 관계
+- minikube 내 도커 시스템 접속 및 관리
+- 설정 파일 삭제 방법
+
+
+
+이상으로 9주차 도커 & 쿠버네티스 스터디 정리 내용이다. 참석해주셔서 감사합니다.
 
